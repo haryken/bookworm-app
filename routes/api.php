@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Api\Apicontroller;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,11 +18,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/books/onsale', 'Apicontroller@index');
-Route::get('/books/recommended', 'Apicontroller@recommended');
-Route::get('/books/popular', 'Apicontroller@popular');
-Route::get('/book/{id}', 'Apicontroller@book');
-Route::get('/book/reviews/{id}/{star}', 'Apicontroller@review');
-Route::get('/categories', 'Apicontroller@categories');
-Route::get('/authors', 'Apicontroller@authors');
-Route::get('/books', 'Apicontroller@books');
+Route::get('/books/onsale', [Apicontroller::class,'index']);
+Route::get('/books/recommended', [Apicontroller::class,'recommended']);
+Route::get('/books/popular', [Apicontroller::class,'popular']);
+Route::get('/book/{id}', [Apicontroller::class,'book']);
+Route::get('/book/reviews/{id?}/{star?}', [Apicontroller::class,'review']);
+Route::get('/categories', [Apicontroller::class,'categories']);
+Route::get('/authors', [Apicontroller::class,'authors']);
+Route::get('/books', [Apicontroller::class,'books']);

@@ -2,7 +2,7 @@ import React from 'react';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import axios from 'axios';
+import {get} from "../httpHelper";
 import {Col,Container,Row,Button} from 'react-bootstrap';
  class Onsale extends React.Component {
   constructor() {
@@ -12,7 +12,7 @@ import {Col,Container,Row,Button} from 'react-bootstrap';
     }
  }
  componentDidMount() {
- axios.get("http://127.0.0.1:8000/api/books/onsale").then(response => {
+ get("/books/onsale").then(response => {
   this.setState({ data : response.data });
  
 })
@@ -71,7 +71,7 @@ render() {
                         {this.state.data.map((result,index) => {
                           if(index < 10){
                           return (
-                              <div className="product">
+                              <div className="product" key={result.book_title}>
                                   <div className="product-img">
                                       <img src={"./img/"+result.book_cover_photo+".jpg"} height="300px" alt=""/>
                                   </div>
@@ -81,7 +81,7 @@ render() {
                                       <h4 className="product-price">{result.sub_price} <del className="product-old-price">{result.book_price}</del></h4>
                                   </div>
                                   <div className="add-to-cart">
-                                      <Button className="add-to-cart-btn" href={"/book/"+result.id}><i class="fa fa-eye"></i>View</Button>
+                                      <Button className="add-to-cart-btn" href={"/book/"+result.id}><i className="fa fa-eye"></i>View</Button>
                                   </div>
                               </div>
                           )}})}

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import {Col,Container,Row,Button,Breadcrumb,Figure,Tabs,Tab} from 'react-bootstrap';
 import axios from 'axios';
+import {get} from '../httpHelper'
+import { result } from 'lodash';
 export class BookInfo extends Component {
     constructor() {
         super();
@@ -10,7 +12,7 @@ export class BookInfo extends Component {
         }
     }
     componentDidMount() {
-        axios.get("http://127.0.0.1:8000/api/book/"+this.props.id).then(response => {
+        get("/book/"+this.props.id).then(response => {
           this.setState({ data : response.data });
         });
     }
@@ -19,8 +21,8 @@ export class BookInfo extends Component {
             <>
             {this.state.data.map((book) => {
                 return (
-                    <>
-                <Col md={12}>
+                        <Row  key={book.book_title}>
+                        <Col md={12} >
                         <Breadcrumb>
                         <Breadcrumb.Item active>Category {book.category_name}</Breadcrumb.Item>
                         </Breadcrumb>
@@ -58,7 +60,7 @@ export class BookInfo extends Component {
                             </Col>
                         </Row>
                     </Col>
-                    <Col md={4} className="book-border">
+                    <Col md={4}>
                         <div className="product-details">
                                 <div className="price">
                                     <h3 className="product-price">$980.00 <del className="product-old-price">$990.00</del></h3>
@@ -72,11 +74,11 @@ export class BookInfo extends Component {
                                     </div>
                                 </div>
                                 <div className="add-to-cart">
-                                    <button className="add-to-cart-btn"><i className="fa fa-shopping-cart"></i> add to cart</button>
+                                    <button className="add-to-cart-btn">add to cart</button>
                                 </div>
                             </div>
                     </Col>
-            </>
+                        </Row>
                 )})}
             </>
         )

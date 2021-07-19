@@ -18,7 +18,7 @@ class Pagination extends React.Component {
         this.state = { pager: {} };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         // set page if items array isn't empty
         if (this.props.items && this.props.items.length) {
             this.setPage(this.props.initialPage);
@@ -113,7 +113,7 @@ class Pagination extends React.Component {
         return (
             <ul className="reviews-pagination">
                 <li className={pager.currentPage === 1 ? 'disabled' : ''}>
-                    <a onClick={() => this.setPage(pager.currentPage - 1)}><i className="fa fa-angle-left"></i></a>
+                    <a onClick={() => this.setPage(pager.currentPage - 1)}>Pre</a>
                 </li>
                 {pager.pages.map((page, index) =>
                     <li key={index} className={pager.currentPage === page ? 'active' : ''}>
@@ -121,7 +121,7 @@ class Pagination extends React.Component {
                     </li>
                 )}
                 <li className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>
-                    <a onClick={() => this.setPage(pager.currentPage + 1)}><i className="fa fa-angle-right"></i></a>
+                    <a onClick={() => this.setPage(pager.currentPage + 1)}>Next</a>
                 </li>
                 
             </ul>

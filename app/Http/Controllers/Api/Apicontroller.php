@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\Review;
 use App\Models\Category;
@@ -78,10 +78,17 @@ class Apicontroller extends Controller
 
     }
     public function review($id,$star){
-        $books = Review::where('reviews.rating_start','like',$star)
+        if($star == 'all'){
+            $books = Review::where('reviews.book_id','=',$id)
+                        ->get();
+        return $books;
+        }else{
+            $books = Review::where('reviews.rating_start','like',$star)
                         ->where('reviews.book_id','=',$id)
                         ->get();
         return $books;
+        }
+        
 
     }
     public function categories(){

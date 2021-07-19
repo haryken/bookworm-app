@@ -1,7 +1,7 @@
 import Popular from './Popular';
 import Recommended from './Recommended';
 import React, { Component } from 'react'
-import {Col,Container,Row,Button, Card,Tabs,Tab} from 'react-bootstrap';
+import {Col,Container,Row,Tabs,Tab} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 export class Feature extends Component {
   render() {

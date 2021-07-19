@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import {Col,Container,Row,Button,Breadcrumb,Figure,Tabs,Tab} from 'react-bootstrap';
 import Comments from './Comments';
-import BookInfo from './BookInfo';import Demo from './Demo';
+import BookInfo from './BookInfo';
 export class Product extends Component {
     constructor() {
         super();
@@ -15,9 +15,7 @@ export class Product extends Component {
         return (
             <Container>
                 <>
-                <Row>
-                    <BookInfo id={this.props.match.params.id}/>
-                </Row>
+                <BookInfo id={this.props.match.params.id}/>
                 <Row>
                     <Col md={8}>
                         <Row>
@@ -27,11 +25,14 @@ export class Product extends Component {
                             </Col>
                             <Col md={12}>
                             <Tabs
-                            defaultActiveKey="5star"
+                            defaultActiveKey="all"
                             transition={false}
                             onSelect={(k) => this.setState({star: k})}
                             className="mb-3"
                             >
+                                <Tab eventKey="all" title="All">
+                                <Comments id={this.props.match.params.id} star="all"/>
+                                </Tab>
                                 <Tab eventKey="5" title="5 STAR">
                                 <Comments id={this.props.match.params.id} star="5"/>
                                 </Tab>
@@ -61,14 +62,14 @@ export class Product extends Component {
                                 <hr/>                                    
                                 </div>
                                 <div className="qty-label qty">
-                                    <label for="title">Add a title</label>
+                                    <label htmlFor="title">Add a title</label>
                                     <input className="input" type="text" name="title" id="title"/>
                                     <br/>
                                     <br/>
                                     <br/>
-                                    <label for="des">Details please! Your review help other shoppers</label>
+                                    <label htmlFor="des">Details please! Your review help other shoppers</label>
                                     <textarea className="input" name="des" id="des" cols="30" rows="7"></textarea>
-                                    <label for="rate">Select a rating star</label>
+                                    <label htmlFor="rate">Select a rating star</label>
                                     <select className="input" name="rate" id="rate">
                                         <option value="1">1 Star</option>
                                         <option value="2">2 Star</option>

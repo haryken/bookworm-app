@@ -27,6 +27,9 @@
         "webpack-cli": "^4.7.2"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^1.2.35",
+        "@fortawesome/free-solid-svg-icons": "^5.15.3",
+        "@fortawesome/react-fontawesome": "^0.1.14",
         "prop-types": "^15.7.2",
         "react-js-pagination": "^3.0.3",
         "react-next-paging": "^7.0.7",

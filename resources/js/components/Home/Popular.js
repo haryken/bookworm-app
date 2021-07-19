@@ -1,6 +1,5 @@
 import React from 'react';
-
-import axios from 'axios';
+import {get} from "../httpHelper";
 import { Col, Row, Button} from 'react-bootstrap';
 class Popular extends React.Component {
     constructor() {
@@ -10,9 +9,8 @@ class Popular extends React.Component {
         }
     }
     componentDidMount() {
-        axios.get("http://127.0.0.1:8000/api/books/popular").then(response => {
+        get("/books/popular").then(response => {
           this.setState({ data : response.data });
-        
         })
     }
     render() {
@@ -22,7 +20,7 @@ class Popular extends React.Component {
               {this.state.data.map((result,index) => {
                    if(index < 8 && result.state == 0){
                     return (
-                      <Col md={3}>
+                      <Col md={3}  key={result.book_title}>
                           <div className="product">
                               <div className="product-img">
                               <img src={"./img/"+result.book_cover_photo+".jpg"} height="300px" alt=""/>
@@ -33,15 +31,15 @@ class Popular extends React.Component {
                               <h4 className="product-price">{result.sub_price}</h4>
                           </div>
                           <div className="add-to-cart">
-                              <Button className="add-to-cart-btn" href={"/book/"+result.id}><i class="fa fa-eye"></i>View</Button>
+                              <Button className="add-to-cart-btn" href={"/book/"+result.id}><i className="fa fa-eye"></i>View</Button>
                           </div>
                           </div>
                       </Col>
                       
                 )}else if(index < 8 && result.state == 1){
                     return (
-                      <Col md={3}>
-                          <div className="product">
+                      <Col md={3} key={result.book_summary}>
+                          <div className="product" >
                               <div className="product-img">
                               <img src={"./img/"+result.book_cover_photo+".jpg"} height="300px" alt=""/>
                           </div>
@@ -51,7 +49,7 @@ class Popular extends React.Component {
                               <h4 className="product-price">{result.sub_price} <del className="product-old-price">{result.book_price}</del></h4>
                           </div>
                           <div className="add-to-cart">
-                              <Button className="add-to-cart-btn" href={"/book/"+result.id}><i class="fa fa-eye"></i>View</Button>
+                              <Button className="add-to-cart-btn" href={"/book/"+result.id}><i className="fa fa-eye"></i>View</Button>
                           </div>
                           </div>
                       </Col>
