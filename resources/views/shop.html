@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+        <title>BookWorm</title>
+
+        <!-- Google font -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <!-- slick -->
+
+        <!-- Font Awesome Icon -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- Custom stlylesheet -->
+        <link type="text/css" rel="stylesheet" href="./css/style.css"/>
+        <link type="text/css" rel="stylesheet" href="./css/slick-theme.css"/>
+        <link type="text/css" rel="stylesheet" href="./css/slick.css"/>
+
+        <!-- jQuery Plugins -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.0/nouislider.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    </head>
+    <body>
+        <!-- HEADER -->
+        <header>
+            <!-- TOP HEADER -->
+            <div id="top-header">
+                <div class="container">
+                    <ul class="header-links pull-left">
+                        <li><a href="#"><i class="fa fa-phone"></i> +039-42-73-773</a></li>
+                        <li><a href="#"><i class="fa fa-envelope-o"></i> hary.ken223@email.com</a></li>
+                        <li><a href="#"><i class="fa fa-map-marker"></i> 441/21 Le Van Luong Road</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /TOP HEADER -->
+            <!-- Menu Toogle -->
+            <div class="header-ctn">
+                <div class="menu-toggle">
+                    <a href="#">
+                        <i class="fa fa-bars"></i>
+                        <span>Menu</span>
+                    </a>
+                </div>
+            </div>
+            <!-- /Menu Toogle -->
+        </header>
+        <!-- /HEADER -->
+
+        <!-- NAVIGATION -->
+        <nav id="navigation">
+            <!-- container -->
+            <div class="container">
+                <!-- responsive-nav -->
+                <div id="responsive-nav">
+                    <a class="navbar-brand" href="#">Logo</a>
+                    <!-- NAV -->
+                    <ul class="main-nav nav navbar-nav pull-right">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#">Shop</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Cart(0)</a></li>
+                        
+                    </ul>
+                    <!-- /NAV -->
+                </div>
+                <!-- /responsive-nav -->
+            </div>
+            <!-- /container -->
+        </nav>
+        <!-- /NAVIGATION -->
+
+        <!-- SECTION -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<!-- ASIDE -->
+					<div id="aside" class="col-md-3">
+                        <h2 class="title">Filter by</h2>
+						<!-- aside Widget -->
+						<div class="aside">
+							<h3 class="aside-title">Categories</h3>
+							<div class="checkbox-filter">
+
+								<div class="input-checkbox">
+									<input type="checkbox" id="category-1">
+									<label for="category-1">
+										<span></span>
+										category-1
+									</label>
+								</div>
+
+								<div class="input-checkbox">
+									<input type="checkbox" id="category-2">
+									<label for="category-2">
+										<span></span>
+										category-2
+									</label>
+								</div>
+
+								<div class="input-checkbox">
+									<input type="checkbox" id="category-3">
+									<label for="category-3">
+										<span></span>
+										category-3
+									</label>
+								</div>
+								
+							</div>
+						</div>
+						<!-- /aside Widget -->
+
+						<!-- aside Widget -->
+						<div class="aside">
+							<h3 class="aside-title">author</h3>
+							<div class="checkbox-filter">
+
+								<div class="input-checkbox">
+									<input type="checkbox" id="author-1">
+									<label for="author-1">
+										<span></span>
+										DuyLinh
+									</label>
+								</div>
+
+								<div class="input-checkbox">
+									<input type="checkbox" id="author-2">
+									<label for="author-2">
+										<span></span>
+										DuyLinh
+									</label>
+								</div>
+
+								<div class="input-checkbox">
+									<input type="checkbox" id="author-3">
+									<label for="author-3">
+										<span></span>
+										DuyLinh
+									</label>
+								</div>
+								
+							</div>
+						</div>
+						<!-- /aside Widget -->
+
+						<!-- aside Widget -->
+						<div class="aside">
+							<h3 class="aside-title">Rating Review</h3>
+							<div class="checkbox-filter">
+								<div class="input-checkbox">
+									<input type="checkbox" id="star-1">
+									<label for="star-1">
+										<span></span>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+									</label>
+                                    
+								</div>
+								<div class="input-checkbox">
+									<input type="checkbox" id="star-2">
+									<label for="star-2">
+										<span></span>
+										    <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+									</label>
+								</div>
+								<div class="input-checkbox">
+									<input type="checkbox" id="star-3">
+									<label for="star-3">
+										<span></span>
+										    <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+									</label>
+								</div>
+								<div class="input-checkbox">
+									<input type="checkbox" id="star-4">
+									<label for="star-4">
+										<span></span>
+										<i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+									</label>
+								</div>
+								<div class="input-checkbox">
+									<input type="checkbox" id="star-5">
+									<label for="star-5">
+										<span></span>
+										<i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+									</label>
+								</div>
+							</div>
+						</div>
+						<!-- /aside Widget -->
+					</div>
+					<!-- /ASIDE -->
+
+					<!-- STORE -->
+					<div id="store" class="col-md-9">
+						<!-- store top filter -->
+						<div class="store-filter clearfix">
+                            <span class="store-qty">Showing 1-12 of 126 books</span>
+							<div class="store-sort">
+                                <select class="input-select">
+                                    <option value="0">Sort by on sale</option>
+                                    <option value="1">Sort by popularity</option>
+                                    <option value="2">Sort by price low to high</option>
+                                    <option value="3">Sort by price high to low</option>
+                                </select>
+                                <select class="input-select">
+                                    <option value="0">show 20</option>
+                                    <option value="1">show 50</option>
+                                </select>
+							</div>
+							
+						</div>
+						<!-- /store top filter -->
+
+						<!-- store products -->
+						<div class="row">
+							<!-- product -->
+							<div class="col-md-4 col-xs-6">
+                                <div class="product">
+                                    <div class="product-img">
+                                        <img src="./img/product06.png" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <h3 class="product-name"><a href="#">Book name goes here</a></h3>
+                                        <p class="author-name">Author</p>
+                                        <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>View</button>
+                                    </div>
+                                </div>
+							</div>
+							<!-- /product -->
+                            <!-- product -->
+							<div class="col-md-4 col-xs-6">
+                                <div class="product">
+                                    <div class="product-img">
+                                        <img src="./img/product06.png" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <h3 class="product-name"><a href="#">Book name goes here</a></h3>
+                                        <p class="author-name">Author</p>
+                                        <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>View</button>
+                                    </div>
+                                </div>
+							</div>
+							<!-- /product -->
+                            <!-- product -->
+							<div class="col-md-4 col-xs-6">
+                                <div class="product">
+                                    <div class="product-img">
+                                        <img src="./img/product06.png" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <h3 class="product-name"><a href="#">Book name goes here</a></h3>
+                                        <p class="author-name">Author</p>
+                                        <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>View</button>
+                                    </div>
+                                </div>
+							</div>
+							<!-- /product -->
+                            <!-- product -->
+							<div class="col-md-4 col-xs-6">
+                                <div class="product">
+                                    <div class="product-img">
+                                        <img src="./img/product06.png" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <h3 class="product-name"><a href="#">Book name goes here</a></h3>
+                                        <p class="author-name">Author</p>
+                                        <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>View</button>
+                                    </div>
+                                </div>
+							</div>
+							<!-- /product -->
+                            <!-- product -->
+							<div class="col-md-4 col-xs-6">
+                                <div class="product">
+                                    <div class="product-img">
+                                        <img src="./img/product06.png" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <h3 class="product-name"><a href="#">Book name goes here</a></h3>
+                                        <p class="author-name">Author</p>
+                                        <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>View</button>
+                                    </div>
+                                </div>
+							</div>
+							<!-- /product -->
+                            <!-- product -->
+							<div class="col-md-4 col-xs-6">
+                                <div class="product">
+                                    <div class="product-img">
+                                        <img src="./img/product06.png" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <h3 class="product-name"><a href="#">Book name goes here</a></h3>
+                                        <p class="author-name">Author</p>
+                                        <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>View</button>
+                                    </div>
+                                </div>
+							</div>
+							<!-- /product -->
+                            <!-- product -->
+							<div class="col-md-4 col-xs-6">
+                                <div class="product">
+                                    <div class="product-img">
+                                        <img src="./img/product06.png" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <h3 class="product-name"><a href="#">Book name goes here</a></h3>
+                                        <p class="author-name">Author</p>
+                                        <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>View</button>
+                                    </div>
+                                </div>
+							</div>
+							<!-- /product -->
+                            <!-- product -->
+							<div class="col-md-4 col-xs-6">
+                                <div class="product">
+                                    <div class="product-img">
+                                        <img src="./img/product06.png" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <h3 class="product-name"><a href="#">Book name goes here</a></h3>
+                                        <p class="author-name">Author</p>
+                                        <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>View</button>
+                                    </div>
+                                </div>
+							</div>
+							<!-- /product -->
+                            <!-- product -->
+							<div class="col-md-4 col-xs-6">
+                                <div class="product">
+                                    <div class="product-img">
+                                        <img src="./img/product06.png" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <h3 class="product-name"><a href="#">Book name goes here</a></h3>
+                                        <p class="author-name">Author</p>
+                                        <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>View</button>
+                                    </div>
+                                </div>
+							</div>
+							<!-- /product -->
+                            <!-- product -->
+							<div class="col-md-4 col-xs-6">
+                                <div class="product">
+                                    <div class="product-img">
+                                        <img src="./img/product06.png" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <h3 class="product-name"><a href="#">Book name goes here</a></h3>
+                                        <p class="author-name">Author</p>
+                                        <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>View</button>
+                                    </div>
+                                </div>
+							</div>
+							<!-- /product -->
+							
+						</div>
+						<!-- /store products -->
+
+						<!-- store bottom filter -->
+						<div class="store-filter clearfix">
+							
+							<ul class="store-pagination">
+								<li class="active">1</li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#">4</a></li>
+								<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+							</ul>
+						</div>
+						<!-- /store bottom filter -->
+					</div>
+					<!-- /STORE -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+
+
+
+        <!-- FOOTER -->
+        <footer id="footer">
+            <!-- top footer -->
+            <div class="section">
+                <!-- container -->
+                <div class="container">
+                    <!-- row -->
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6">
+                            <div class="footer">
+                                <ul class="footer-links">
+                                    <li><a href="#"><i class="fa fa-map-marker"></i>441/21 Le Van Luong Road</a></li>
+                                    <li><a href="#"><i class="fa fa-phone"></i>+039-42-73-773</a></li>
+                                    <li><a href="#"><i class="fa fa-envelope-o"></i>hary.ken223@email.com</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clearfix visible-xs"></div>
+                    </div>
+                    <!-- /row -->
+                </div>
+                <!-- /container -->
+            </div>
+            <!-- /top footer -->
+            <!-- bottom footer -->
+            <div id="bottom-footer" class="section">
+                <div class="container">
+                    <!-- row -->
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                                        <span class="copyright">
+                                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://www.facebook.com/hary.ken.1555/" target="_blank" style="color: azure;">DuyLinh</a>
+                                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                        </span>
+                        </div>
+                    </div>
+                    <!-- /row -->
+                </div>
+                <!-- /container -->
+            </div>
+            <!-- /bottom footer -->
+        </footer>
+        <!-- /FOOTER -->
+		<script src="js/slick.min.js"></script>
+		<script src="js/main.js"></script>  
+    </body>
+</html>
