@@ -2,6 +2,7 @@ import React from 'react';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import {Link} from "react-router-dom";
 import {get} from "../httpHelper";
 import {Col,Container,Row,Button} from 'react-bootstrap';
  class Onsale extends React.Component {
@@ -12,7 +13,7 @@ import {Col,Container,Row,Button} from 'react-bootstrap';
     }
  }
  componentDidMount() {
- get("/books/onsale").then(response => {
+ get("/books/topOnsale").then(response => {
   this.setState({ data : response.data });
  
 })
@@ -76,12 +77,9 @@ render() {
                                       <img src={"./img/"+result.book_cover_photo+".jpg"} height="300px" alt=""/>
                                   </div>
                                   <div className="product-body" style={{height: "150px"}}>
-                                      <h3 className="product-name">{result.book_title}</h3>
+                                      <Link to={"/book/"+result.id}>{result.book_title}</Link>
                                       <p className="author-name">   {result.author_name}</p>
                                       <h4 className="product-price">{result.sub_price} <del className="product-old-price">{result.book_price}</del></h4>
-                                  </div>
-                                  <div className="add-to-cart">
-                                      <Button className="add-to-cart-btn" href={"/book/"+result.id}><i className="fa fa-eye"></i>View</Button>
                                   </div>
                               </div>
                           )}})}

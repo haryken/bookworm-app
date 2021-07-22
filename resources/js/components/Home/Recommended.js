@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col, Row,Button } from 'react-bootstrap';
 import {get} from "../httpHelper";
+import {Link} from "react-router-dom";
  class Recommended extends React.Component {
   constructor() {
     super();
@@ -9,17 +10,16 @@ import {get} from "../httpHelper";
     }
  }
  componentDidMount() {
-    get("/books/recommended").then(response => {
+    get("/books/topRecommended").then(response => {
       this.setState({ data : response.data });
     })
 }
 render() {
       
     return (
-      <>
             <Row>
               {this.state.data.map((result,index) => {
-                  if(index < 8 && result.state == 0){
+                  if(index < 8 && result.state == 0 || result.state == null){
                     return (
                       <Col md={3} key={result.book_summary}>
                           <div className="product">
@@ -27,12 +27,9 @@ render() {
                               <img src={"./img/"+result.book_cover_photo+".jpg"} height="300px" alt=""/>
                           </div>
                           <div className="product-body" style={{height: "150px"}}>
-                              <h3 className="product-name">{result.book_title}</h3>
+                            <Link to={"/book/"+result.id}>{result.book_title}</Link>
                               <p className="author-name">   {result.author_name}</p>
                               <h4 className="product-price">{result.sub_price}</h4>
-                          </div>
-                          <div className="add-to-cart">
-                              <Button className="add-to-cart-btn" href={"/book/"+result.id}><i className="fa fa-eye"></i>View</Button>
                           </div>
                           </div>
                       </Col>
@@ -45,22 +42,18 @@ render() {
                               <img src={"./img/"+result.book_cover_photo+".jpg"} height="300px" alt=""/>
                           </div>
                           <div className="product-body" style={{height: "150px"}}>
-                              <h3 className="product-name">{result.book_title}</h3>
+                            <Link to={"/book/"+result.id}>{result.book_title}</Link>
                               <p className="author-name">   {result.author_name}</p>
                               <h4 className="product-price">{result.sub_price} <del className="product-old-price">{result.book_price}</del></h4>
-                          </div>
-                          <div className="add-to-cart">
-                              <Button className="add-to-cart-btn" href={"/book/"+result.id}><i className="fa fa-eye"></i>View</Button>
                           </div>
                           </div>
                       </Col>
                       
-                )
+                          )
                 }
                 
                 })}
           </Row>
-      </>
     );
   }
 }

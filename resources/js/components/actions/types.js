@@ -1,0 +1,8 @@
+export const SET_MESSAGE = 'SET_MESSAGE'
+export const CLEAR_MESSAGE = 'CLEAR_MESSAGE'
+
+export const ADD_CART = 'ADD_CART'
+export const INCREASE_QUANTITY = 'INCREASE_QUANTITY'
+export const DECREASE_QUANTITY = 'DECREASE_QUANTITY'
+export const DELETE_ITEM = 'DELETE_ITEM'
+export const CLEAR_CART = 'CLEAR_CART'

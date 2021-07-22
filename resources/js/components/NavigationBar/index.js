@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Navbar,Container,Nav} from 'react-bootstrap';
+
 export class NavigationBar extends Component {
     render() {
         return (
@@ -20,7 +21,7 @@ export class NavigationBar extends Component {
                 <Nav.Link href="/">Home</Nav.Link>
                   <Nav.Link href="/shop">Shop</Nav.Link>
                   <Nav.Link href="/about">About</Nav.Link>
-                  <Nav.Link href="/cart">Cart</Nav.Link>
+                  <Nav.Link href="/cart">Cart({this.props.cart_cnt})</Nav.Link>
                 </Nav>
               </Navbar.Collapse>
           </Container>
