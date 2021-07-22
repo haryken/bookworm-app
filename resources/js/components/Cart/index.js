@@ -7,8 +7,17 @@ export default class Cart extends Component {
         items: JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [],
         carts: [],
         amounts: [],
-        total: 0,
+        total: 0.0,
         msg: "",
+    }
+    componentDidMount(){
+        let totalcost = 0;
+        this.state.items.map((re,i)=>{
+            totalcost = totalcost + Number(re.amount)*Number(re.sub_price)
+        })
+        this.setState({
+            total: totalcost.toFixed(2)
+        })
     }
     increaseValue = (book_id,amount) => {    
         if (amount + 1 <= 8) {
@@ -19,8 +28,17 @@ export default class Cart extends Component {
             localStorage.removeItem('cart');
             localStorage.setItem('cart', JSON.stringify(updateAmount));
             this.setState({
-                items: JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : []
+                items: JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [],
             })
+            let k = JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [];
+            let totalcost = 0.0;
+            k.map((re,i)=>{
+                totalcost = totalcost + Number(re.amount)*Number(re.sub_price)
+            })
+            this.setState({
+                total: totalcost.toFixed(2)
+            })
+
         }
         else {
             console.log('false');
@@ -36,15 +54,28 @@ export default class Cart extends Component {
             ))
             localStorage.removeItem('cart');
             localStorage.setItem('cart', JSON.stringify(updateAmount));
-            this.setState({
-                items: JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : []
+            let totalcost = 0.0;
+            let k = JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [];
+            k.map((re,i)=>{
+                totalcost = totalcost + Number(re.amount)*Number(re.sub_price)
             })
+            this.setState({
+                items: JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [],
+                total: totalcost.toFixed(2)
+            })
+            
         }
         else if (amount - 1 == 0) {
             updateAmount = this.state.items.filter(item => (item.bookId != book_id));
             localStorage.setItem('cart', JSON.stringify(updateAmount));
+            let totalcost = 0.0;
+            let k = JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [];
+            k.map((re,i)=>{
+                totalcost = totalcost + Number(re.amount)*Number(re.sub_price)
+            })
             this.setState({
-                items: JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : []
+                items: JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [],
+                total: totalcost.toFixed(2)
             })
             this.props.handleCartRemove();
         }
@@ -58,9 +89,10 @@ export default class Cart extends Component {
             <>
             <Container>
                 <Row>
+
                     <Col md={9}>
                     <div className="table-users">
-                            <table cellSpacing="1">
+                            <table>
                                 <thead>
                                 <tr id="table-title" height="60px">
                                   <th width="230">Product </th>
@@ -117,7 +149,7 @@ export default class Cart extends Component {
                                         </div>
                                       </td>
                                       <td>
-                                          <h4>${Number(result.sub_price)*Number(result.amount)} </h4>
+                                          <h4>${Number(result.sub_price*result.amount).toFixed(2)} </h4>
                                       </td>
                                  </tr>
                                  )})}
@@ -125,6 +157,17 @@ export default class Cart extends Component {
                                </tbody>
                             </table>
                          </div>
+                    </Col>
+                    <Col md={3}>
+							<h3 className="title">Cart totals</h3>
+						<div className="order-summary">
+							<div className="order-col">
+								<div><strong>TOTAL</strong></div>
+								<div><strong className="order-total">${this.state.total}</strong></div>
+							</div>
+						</div>
+				
+						<a href="#" className="primary-btn order-submit" style={{width:"100%"}}>Place order</a>
                     </Col>
                 </Row>
             </Container>

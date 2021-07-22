@@ -22,11 +22,16 @@ export class Product extends Component {
             finalPrice: '',
             delPrice: '',
             msg: '',
+            id: 0
             
         }
+        this.handlePageChange = this.handlePageChange.bind(this);
     }
     async componentDidMount() {
-        await get("/book/"+this.props.match.params.id).then(response => {
+        await this.setState({
+            id: this.props.match.params.id
+        })
+        await get("/book/"+this.state.id).then(response => {
             this.setState({ data : response.data[0] });
             if(response.data[0].state == null || response.data[0].state == 0){
                 this.setState({
@@ -39,8 +44,7 @@ export class Product extends Component {
                 })
             }
         });
-        await get("/book/reviews/"+this.props.match.params.id+"/"+this.state.star+"/"+this.state.pageNo+"/"+
-                            this.state.sortState+"?page="+this.state.activePage)
+        await get("/book/reviews/"+this.state.id+"/"+this.state.star+"/"+this.state.pageNo+"/"+this.state.sortState+"?page="+this.state.activePage)
         .then(response => {
           this.setState({
                 items: response.data.data,
@@ -53,7 +57,7 @@ export class Product extends Component {
 
     }
     handlePageChange(pageNumber) {
-        get("/book/reviews/"+this.props.match.params.id+"/"+this.state.star+"/"+this.state.pageNo+"?page=" + pageNumber)
+        get("/book/reviews/"+this.state.id+"/"+this.state.star+"/"+this.state.pageNo+"/"+this.state.sortState+"?page=" + pageNumber)
             .then(response => {
                 this.setState({
                     items: response.data.data,
@@ -67,7 +71,7 @@ export class Product extends Component {
                 sortState: state,
                 activePage: 1
             });
-            get("/book/reviews/"+this.props.match.params.id+"/"+this.state.star+"/"+
+            get("/book/reviews/"+this.state.id+"/"+this.state.star+"/"+
                 this.state.pageNo+"/"+this.state.sortState+"?page="+this.state.activePage)
                 .then(response => {
                 this.setState({
@@ -85,7 +89,7 @@ export class Product extends Component {
             star: e,
             activePage: 1
         });
-        get("/book/reviews/"+this.props.match.params.id+"/"+this.state.star+"/"+
+        get("/book/reviews/"+this.state.id+"/"+this.state.star+"/"+
         this.state.pageNo+"/"+this.state.sortState+"?page="+this.state.activePage)
         .then(response => {
         this.setState({
@@ -100,7 +104,7 @@ export class Product extends Component {
     async handldeform(e){
         e.preventDefault();
         await axios.post('http://127.0.0.1:8000/api/book/review', {
-            book_id: this.props.match.params.id,
+            book_id: this.state.id,
             review_title: e.target.review_title.value,
             review_details: e.target.review_details.value,
             rating_start: Number(e.target.rating_start.value)
@@ -116,10 +120,10 @@ export class Product extends Component {
             review_details: ''
         })
 
-        await get("/book/"+this.props.match.params.id).then(response => {
+        await get("/book/"+this.state.id).then(response => {
             this.setState({ data : response.data[0] });
         });
-        await get("/book/reviews/"+this.props.match.params.id+"/"+this.state.star+"/"+this.state.pageNo+"/"+
+        await get("/book/reviews/"+this.state.id+"/"+this.state.star+"/"+this.state.pageNo+"/"+
                             this.state.sortState+"?page="+this.state.activePage)
         .then(response => {
           this.setState({
@@ -127,7 +131,6 @@ export class Product extends Component {
                 activePage: response.data.current_page,
                 itemsCountPerPage: Number(response.data.per_page),
                 totalItemsCount: response.data.total,
-            
             });
         });
     }
@@ -228,7 +231,7 @@ export class Product extends Component {
                                 </div>
                                 <div className="add-to-cart">
                                     <button className="add-to-cart-btn" 
-                                    onClick={()=>this.addProduct(this.props.match.params.id,
+                                    onClick={()=>this.addProduct(this.state.id,
                                                                  this.state.buyQuantity,
                                                                  this.state.data.book_title,
                                                                  this.state.data.author_name,
@@ -246,7 +249,7 @@ export class Product extends Component {
                             <Row>
                                 <Col md={12}>
                                     <h4>Customer Reviews (filer by {this.state.star} star)</h4>
-                                    <h1>{this.state.data.avg_star} Star</h1>
+                                    <h1>{Number(this.state.data.avg_star).toFixed(2)} Star</h1>
                                 </Col>
                                 <Col md={12}>
                                 <Tabs
@@ -303,14 +306,15 @@ export class Product extends Component {
                                 <hr/>
                             </div>
                         )}
-                </Col>
-                <Pagination
+                     <Pagination
                     activePage={this.state.activePage}
                     itemsCountPerPage={this.state.itemsCountPerPage}
                     totalItemsCount={this.state.totalItemsCount}
                     pageRangeDisplayed={5}
                     onChange={this.handlePageChange}
                 />
+                </Col>
+               
                 </>
             </Row>
                             </Row>
