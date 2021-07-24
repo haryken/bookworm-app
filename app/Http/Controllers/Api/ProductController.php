@@ -14,15 +14,15 @@ class ProductController extends Controller
 {
     public function book($id){
         $books = Book::leftjoin('discounts', 'books.id', 'discounts.book_id')
-                        ->join('authors', 'books.author_id', 'authors.id')
-                        ->join('categories', 'categories.id', 'books.category_id')
-                        ->where('books.id','like',$id)
-                        ->selectRaw('*')
-                        ->SelectAvgStar()
-                        ->SelectSubPrice()
-                        ->SelectReviewsCount()
-                        ->State()
-                        ->get();
+                    ->join('authors', 'books.author_id', 'authors.id')
+                    ->join('categories', 'categories.id', 'books.category_id')
+                    ->where('books.id','like',$id)
+                    ->selectRaw('*')
+                    ->SelectAvgStar()
+                    ->SelectSubPrice()
+                    ->SelectReviewsCount()
+                    ->State()
+                    ->get();
         return $books;
 
     }

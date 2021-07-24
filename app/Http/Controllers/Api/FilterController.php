@@ -16,13 +16,18 @@ class FilterController extends Controller
 {
     public function onsaleAuthor($pageno=5,$id=1)
     {
-        $books = Book::join('discounts', 'books.id', 'discounts.book_id')
+        $books = Book::leftJoin('discounts', 'books.id', 'discounts.book_id')
                     ->join('authors', 'books.author_id', 'authors.id')
-                    ->selectRaw('*,books.id')
+                    ->selectRaw('*,books.id,
+                    (CASE
+                        WHEN ((discounts.discount_start_date <= now() and discounts.discount_end_date >= now())
+                        or (discounts.discount_start_date <= now() and discounts.discount_end_date is null ))
+                        THEN 1
+                        ELSE 0
+                        end) AS state')
+                    ->join('categories', 'books.category_id', 'categories.id')
                     ->SelectSubPrice()
-                    ->State()
-                    ->whereRaw('(discounts.discount_start_date <= now() and discounts.discount_end_date >= now())
-                                or (discounts.discount_start_date <= now() and discounts.discount_end_date is null )')
+                    ->orderBy('state', 'desc')
                     ->orderBy('sub_price', 'desc')
                     ->where("authors.id","like",$id)
                     ->paginate($pageno);
@@ -52,14 +57,18 @@ class FilterController extends Controller
 
     public function onsaleCategory($pageno=5,$id=1)
     {
-        $books = Book::join('discounts', 'books.id', 'discounts.book_id')
+        $books = Book::leftJoin('discounts', 'books.id', 'discounts.book_id')
                     ->join('authors', 'books.author_id', 'authors.id')
+                    ->selectRaw('*,books.id,
+                    (CASE
+                        WHEN ((discounts.discount_start_date <= now() and discounts.discount_end_date >= now())
+                        or (discounts.discount_start_date <= now() and discounts.discount_end_date is null ))
+                        THEN 1
+                        ELSE 0
+                        end) AS state')
                     ->join('categories', 'books.category_id', 'categories.id')
-                    ->selectRaw('*,books.id')
                     ->SelectSubPrice()
-                    ->State()
-                    ->whereRaw('(discounts.discount_start_date <= now() and discounts.discount_end_date >= now())
-                                or (discounts.discount_start_date <= now() and discounts.discount_end_date is null )')
+                    ->orderBy('state', 'desc')
                     ->orderBy('sub_price', 'desc')
                     ->where("categories.id","like",$id)
                     ->paginate($pageno);
@@ -93,7 +102,13 @@ class FilterController extends Controller
     {
         $books = Book::join('discounts', 'books.id', 'discounts.book_id')
                     ->join('authors', 'books.author_id', 'authors.id')
-                    ->selectRaw('*')
+                    ->selectRaw('*,books.id,
+                    (CASE
+                        WHEN ((discounts.discount_start_date <= now() and discounts.discount_end_date >= now())
+                        or (discounts.discount_start_date <= now() and discounts.discount_end_date is null ))
+                        THEN 1
+                        ELSE 0
+                        end) AS state')
                     ->join(DB::raw("(select books.id, avg(reviews.rating_start::float) as avg_star
                                 from books 
                                 join reviews
@@ -106,10 +121,10 @@ class FilterController extends Controller
                                 }
                     )
                     ->SelectSubPrice()
-                    ->State()
                     ->whereRaw('discounts.discount_start_date <= now() 
                                 and (discounts.discount_end_date >= now() or discounts.discount_end_date is null )')
                     ->orderBy('sub_price', 'desc')
+                    ->orderBy('state', 'desc')
                     ->where('c.avg_star','>=',$id)
                     ->paginate($pageno);  
         return $books;
@@ -130,7 +145,6 @@ class FilterController extends Controller
                                     }
                          )
                     ->SelectSubPrice()
-                    ->SelectReviewsCount()
                     ->State()
                     ->where('c.avg_star','>=',$id)
                     ->orderBy('reviews_count', 'desc')

@@ -189,7 +189,7 @@ export class Shop extends Component {
                                                     </div>
                                                     <div className="product-body" style={{height: "150px"}}>
                                                         <p className="author-name">   {result.author_name}</p>
-                                                        <p data-tip='1111' data-for={result.book_title}><Link to={"/book/"+result.id}>{result.book_title}</Link></p>
+                                                        <p data-tip='' data-for={result.book_title}><Link to={"/book/"+result.id}>{result.book_title}</Link></p>
                                                         <ReactTooltip id={result.book_title} getContent={() => { return "View detail" }}/>
                                                     </div>
                                                     <div className="product-body">
@@ -208,8 +208,9 @@ export class Shop extends Component {
                                                         <img src={"./img/"+result.book_cover_photo+".jpg"} height="200px" alt=""/>
                                                     </div>
                                                     <div className="product-body" style={{height: "150px"}}>
-                                                        <Link to={"/book/"+result.book_id}>{result.book_title}</Link>
                                                         <p className="author-name">{result.author_name}</p>
+                                                        <p data-tip='' data-for={result.book_title}><Link to={"/book/"+result.id}>{result.book_title}</Link></p>
+                                                        <ReactTooltip id={result.book_title} getContent={() => { return "View detail" }}/>
                                                         
                                                     </div>
                                                     <div className="product-body">

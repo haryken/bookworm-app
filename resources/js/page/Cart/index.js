@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import {get} from '../httpHelper';
-import {Col,Container,Row,Table,Figure } from 'react-bootstrap';
+import {Col,Container,Row,Table,Figure,Button } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 export default class Cart extends Component {
@@ -21,7 +20,7 @@ export default class Cart extends Component {
             total: totalcost.toFixed(2)
         })
     }
-    increaseValue = (book_id,amount) => {    
+    increaseValue(book_id,amount){    
         if (amount  <= 7) {
             let updateAmount = this.state.items.map(item => (
                 (item.bookId == book_id) ? { ...item, amount: item.amount + 1 } : item
@@ -45,7 +44,7 @@ export default class Cart extends Component {
         }
         
     }
-    decreaseValue = (book_id,amount) => {
+    decreaseValue(book_id,amount){
         let updateAmount;
         if (amount - 1 > 0) {
 
@@ -94,6 +93,12 @@ export default class Cart extends Component {
         else {
             console.log('false');
         }
+    }
+    inputChangedHandler(e){
+        e.defaultValue();
+    }
+    handlePlaceOrder(){
+        console.log("click")
     }
     render() {
         if(this.state.cartCount>0){
@@ -157,7 +162,12 @@ export default class Cart extends Component {
                                                     <div className="add-to-cart">
                                                         <div className="qty-label">
                                                             <div className="input-number">
-                                                                <input type="number" value="1" value={result.amount}/>
+                                                                <input 
+                                                                type="number"
+                                                                value="1"
+                                                                value={result.amount}
+                                                                onChange={(event)=>this.inputChangedHandler(event)}
+                                                                />
                                                                 <span className="qty-up" onClick={() => this.increaseValue(result.bookId,result.amount)}>+</span>
                                                                 <span className="qty-down" onClick={() => this.decreaseValue(result.bookId,result.amount)}>-</span>
                                                             </div>
@@ -179,15 +189,29 @@ export default class Cart extends Component {
                                
                         </Col>
                         <Col md={3}>
-                                <h3 className="title">Cart totals</h3>
-                            <div className="order-summary">
-                                <div className="order-col">
-                                    <div><strong>TOTAL</strong></div>
-                                    <div><strong className="order-total">${this.state.total}</strong></div>
-                                </div>
-                            </div>
-                    
-                            <a href="#" className="primary-btn order-submit" style={{width:"100%"}}>Place order</a>
+                        <Table>
+                                    <thead>
+                                            <tr height="60px">
+                                                <th colSpan="2">Cart totals </th>
+                                            </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                 <div><strong>TOTAL</strong></div>
+                                            </td>
+                                            <td>
+                                                <div><strong className="order-total">${this.state.total}</strong></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                        </Table>
+                            <button 
+                            className="primary-btn" 
+                            onClick={()=>this.handlePlaceOrder()}
+                            >
+                                PLACE ORDER
+                            </button>
                         </Col>
                     </Row>
                 </Container>

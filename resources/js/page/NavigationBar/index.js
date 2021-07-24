@@ -21,7 +21,7 @@ export class NavigationBar extends Component {
                 <Nav.Link href="/">Home</Nav.Link>
                   <Nav.Link href="/shop">Shop</Nav.Link>
                   <Nav.Link href="/about">About</Nav.Link>
-                  <Nav.Link href="/cart">Cart({this.props.cart_cnt})</Nav.Link>
+                  <Nav.Link href="/cart">Cart({this.props.count_item})</Nav.Link>
                 </Nav>
               </Navbar.Collapse>
           </Container>

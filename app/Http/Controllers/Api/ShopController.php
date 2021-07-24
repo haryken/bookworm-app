@@ -12,17 +12,22 @@ class ShopController extends Controller
 {
     public function onsale($pageno=5)
     {
-        $books = Book::join('discounts', 'books.id', 'discounts.book_id')
-                        ->join('authors', 'books.author_id', 'authors.id')
-                        ->join('categories', 'books.category_id', 'categories.id')
-                        ->selectRaw('*,books.id')
-                        ->SelectSubPrice()
-                        ->State()
-                        ->whereRaw('(discounts.discount_start_date <= now() and discounts.discount_end_date >= now())
-                                    or (discounts.discount_start_date <= now() and discounts.discount_end_date is null )')
-                        ->orderBy('sub_price', 'desc')
-                        ->paginate($pageno);
-        return $books;
+        $books = Book::leftJoin('discounts', 'books.id', 'discounts.book_id')
+                    ->join('authors', 'books.author_id', 'authors.id')
+                    ->selectRaw('*,books.id,
+                    (CASE
+                        WHEN ((discounts.discount_start_date <= now() and discounts.discount_end_date >= now())
+                        or (discounts.discount_start_date <= now() and discounts.discount_end_date is null ))
+                        THEN 1
+                        ELSE 0
+                        end) AS state')
+                    ->join('categories', 'books.category_id', 'categories.id')
+                    ->SelectSubPrice()
+                    ->SelectReviewsCount()
+                    ->orderBy('state', 'desc')
+                    ->orderBy('sub_price', 'desc')
+                    ->paginate($pageno);
+            return $books;
     }
 
     public function popular($pageno=5){
@@ -31,7 +36,10 @@ class ShopController extends Controller
                     ->selectRaw('*,books.id')
                     ->join('categories', 'books.category_id', 'categories.id')
                     ->SelectSubPrice()
+                    ->SelectReviewsCount()
                     ->State()
+                    ->orderBy('reviews_count', 'desc')
+                    ->orderBy('sub_price','asc')
                     ->paginate($pageno);
             return $books;
     }

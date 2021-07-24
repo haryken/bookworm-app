@@ -38,6 +38,7 @@ class HomeController extends Controller
                 ->SelectSubPrice()
                 ->State()
                 ->orderBy('reviews_count', 'desc')
+                ->orderBy('sub_price','asc')
                 ->limit(8)
                 ->get();
         return $books;
