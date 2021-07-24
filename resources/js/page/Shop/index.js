@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import {Container, Row, Col,Breadcrumb} from 'react-bootstrap';
-import { Label, UncontrolledCollapse } from 'reactstrap';
+import { UncontrolledCollapse } from 'reactstrap';
 import {get} from "../httpHelper";
 import Pagination from "react-js-pagination";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import {Link} from "react-router-dom";
+import ReactTooltip from 'react-tooltip';
 export class Shop extends Component {
     constructor() {
         super();
@@ -84,16 +84,18 @@ export class Shop extends Component {
             <>
             <Container>
                 <Row>
-                    <Col md={12}>
-                    <Breadcrumb>
-                        <Breadcrumb.Item>Book</Breadcrumb.Item>
-                    </Breadcrumb>
-                    </Col>
+                    <Col md={12} >
+                        <hr/>
+                        <Breadcrumb>
+                        <Breadcrumb.Item active>Books  {this.state.Label}</Breadcrumb.Item>
+                        </Breadcrumb>
+                        <hr/>
+                         </Col>
                     <Col md={3}>
                         <Row>
                             <Col md={12}>
-                            <h2 className="title">Filter by {this.state.Label}</h2>
-                            <div id="toggler" className="book-border"><h1>Category</h1></div>
+                            <h2 className="title">Filter</h2>
+                            <div id="toggler" className="book-border"><h3>Category</h3></div>
                             <UncontrolledCollapse toggler="#toggler">
                             {this.state.categories.map(cate=>{
                                 return(
@@ -106,11 +108,12 @@ export class Shop extends Component {
                                 )
                             })}
                             </UncontrolledCollapse>
-                            <div id="toggler1" className="book-border">Authur</div>
+                            <div id="toggler1" className="book-border"><h3>Authur</h3></div>
                             <UncontrolledCollapse toggler="#toggler1">
                             {this.state.authors.map(cate=>{
                                 return(
                                 <div key={cate.author_name}
+                                className="book-border"
                                 onClick={event => this.handelFilter("/author/"+cate.id,'Author '+cate.author_name)}
                                 >
                                     {cate.author_name}
@@ -118,21 +121,31 @@ export class Shop extends Component {
                                 )
                             })}
                             </UncontrolledCollapse>
-                            <div id="toggler2" className="book-border">Rating Review</div>
+                            <div id="toggler2" className="book-border"><h3>Rating Review</h3></div>
                             <UncontrolledCollapse toggler="#toggler2">
-                            <div onClick={event => this.handelFilter("/star/1",'1 Star')}>
+                            <div 
+                            className="book-border"
+                            onClick={event => this.handelFilter("/star/1",'1 Star')}>
                                 1 Star
                             </div>
-                            <div onClick={event => this.handelFilter("/star/2",'2 Star')}>
+                            <div onClick={event => this.handelFilter("/star/2",'2 Star')}
+                            className="book-border"
+                            >
                                 2 Star
                             </div>
-                            <div onClick={event => this.handelFilter("/star/3",'3 Star')}>
+                            <div
+                            className="book-border"
+                            onClick={event => this.handelFilter("/star/3",'3 Star')}>
                                 3 Star
                             </div>
-                            <div onClick={event => this.handelFilter("/star/4",'4 Star')}>
+                            <div 
+                            className="book-border"
+                            onClick={event => this.handelFilter("/star/4",'4 Star')}>
                                 4 Star
                             </div>
-                            <div onClick={event => this.handelFilter("/star/5",'5 Star')}>
+                            <div
+                            className="book-border"
+                            onClick={event => this.handelFilter("/star/5",'5 Star')}>
                                 5 Star
                             </div>
                             </UncontrolledCollapse>
@@ -175,8 +188,9 @@ export class Shop extends Component {
                                                         <img src={"./img/"+result.book_cover_photo+".jpg"} height="200px" alt=""/>
                                                     </div>
                                                     <div className="product-body" style={{height: "150px"}}>
-                                                        <Link to={"/book/"+result.book_id}>{result.book_title}</Link>
                                                         <p className="author-name">   {result.author_name}</p>
+                                                        <p data-tip='1111' data-for={result.book_title}><Link to={"/book/"+result.id}>{result.book_title}</Link></p>
+                                                        <ReactTooltip id={result.book_title} getContent={() => { return "View detail" }}/>
                                                     </div>
                                                     <div className="product-body">
                                                          <h4 className="product-price">{result.sub_price} <del className="product-old-price">{result.book_price}</del></h4>
@@ -211,6 +225,7 @@ export class Shop extends Component {
                                     )}
                                    
                                 </Row>
+                                <div id="react-paginate">
                                 <Pagination
                                         activePage={this.state.activePage}
                                         itemsCountPerPage={this.state.itemsCountPerPage}
@@ -218,6 +233,7 @@ export class Shop extends Component {
                                         pageRangeDisplayed={5}
                                         onChange={this.handlePageChange}
                                     />
+                                </div>
                             </Col>
                         </Row>
                       

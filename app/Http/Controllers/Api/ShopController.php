@@ -15,7 +15,7 @@ class ShopController extends Controller
         $books = Book::join('discounts', 'books.id', 'discounts.book_id')
                         ->join('authors', 'books.author_id', 'authors.id')
                         ->join('categories', 'books.category_id', 'categories.id')
-                        ->selectRaw('*')
+                        ->selectRaw('*,books.id')
                         ->SelectSubPrice()
                         ->State()
                         ->whereRaw('(discounts.discount_start_date <= now() and discounts.discount_end_date >= now())
@@ -28,7 +28,7 @@ class ShopController extends Controller
     public function popular($pageno=5){
         $books = Book::leftJoin('discounts', 'books.id', 'discounts.book_id')
                     ->join('authors', 'books.author_id', 'authors.id')
-                    ->selectRaw('*')
+                    ->selectRaw('*,books.id')
                     ->join('categories', 'books.category_id', 'categories.id')
                     ->SelectSubPrice()
                     ->State()
@@ -38,7 +38,7 @@ class ShopController extends Controller
     public function books($sort='asc',$pageno=5){
         $books = Book::leftJoin('discounts', 'books.id', 'discounts.book_id')
                         ->join('authors', 'books.author_id', 'authors.id')
-                        ->selectRaw('*')
+                        ->selectRaw('*,books.id')
                         ->join('categories', 'books.category_id', 'categories.id')
                         ->SelectSubPrice()
                         ->State()

@@ -20,6 +20,7 @@ class HomeController extends Controller
                 ->join('authors', 'books.author_id', 'authors.id')
                 ->join('categories', 'books.category_id', 'categories.id')
                 ->SelectSubPrice()
+                ->selectRaw('*,books.id')
                 ->whereRaw('(discounts.discount_start_date <= now() and discounts.discount_end_date >= now())
                             or (discounts.discount_start_date <= now() and discounts.discount_end_date is null )')
                 ->orderBy('sub_price', 'desc')
@@ -32,6 +33,7 @@ class HomeController extends Controller
         $books = Book::leftJoin('discounts', 'books.id', 'discounts.book_id')
                 ->join('authors', 'books.author_id', 'authors.id')
                 ->join('categories', 'books.category_id', 'categories.id')
+                ->selectRaw('*,books.id')
                 ->SelectReviewsCount()
                 ->SelectSubPrice()
                 ->State()
@@ -43,6 +45,7 @@ class HomeController extends Controller
     public function popular(){
         $books = Book::leftJoin('discounts', 'books.id', 'discounts.book_id')
                 ->join('authors', 'books.author_id', 'authors.id')
+                ->selectRaw('*,books.id')
                 ->join('categories', 'books.category_id', 'categories.id')
                 ->SelectReviewsCount()
                 ->SelectSubPrice()

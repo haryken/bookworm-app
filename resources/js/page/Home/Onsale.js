@@ -20,7 +20,6 @@ import {Col,Container,Row,Button} from 'react-bootstrap';
 }
 render() {
       var settings = {
-        dots: true,
         infinite: false,
         speed: 500,
         slidesToShow: 4,
@@ -66,8 +65,6 @@ render() {
         </Row>
         <Row>
             <Col>
-            <div className="products-tabs">
-              <div  className="products-slick" data-nav="#slick-nav-2">
                   <Slider {...settings}>
                         {this.state.data.map((result,index) => {
                           if(index < 10){
@@ -84,8 +81,6 @@ render() {
                               </div>
                           )}})}
                   </Slider>
-              </div>
-          </div>
             </Col>
         </Row>
           </Container>

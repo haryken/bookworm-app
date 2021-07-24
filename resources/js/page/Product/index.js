@@ -4,6 +4,8 @@ import {Col,Container,Row,Button,Breadcrumb,Figure,Tabs,Tab} from 'react-bootstr
 import {get} from '../httpHelper';
 import Pagination from "react-js-pagination";
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 export class Product extends Component {
     constructor() {
         super();
@@ -21,8 +23,8 @@ export class Product extends Component {
             buyQuantity: 1,
             finalPrice: '',
             delPrice: '',
-            msg: '',
-            id: 0
+            id: 0,
+            cartCount: 0
             
         }
         this.handlePageChange = this.handlePageChange.bind(this);
@@ -84,9 +86,9 @@ export class Product extends Component {
               });
        
     }
-    async star(e){
+    async star(rating_star){
         await this.setState({
-            star: e,
+            star: rating_star,
             activePage: 1
         });
         get("/book/reviews/"+this.state.id+"/"+this.state.star+"/"+
@@ -110,19 +112,28 @@ export class Product extends Component {
             rating_start: Number(e.target.rating_start.value)
           })
           .then(function (response) {
-            console.log(response);
+            toast.success('Your review has been saved!', {
+                position: "bottom-left",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            
           })
           .catch(function (error) {
             console.log(error);
           });
           await this.setState({
             review_title: '',
-            review_details: ''
-        })
+            review_details: '',
+            activePage: 1,
+            sortState: 'desc',
+            star: e.target.rating_start.value,
 
-        await get("/book/"+this.state.id).then(response => {
-            this.setState({ data : response.data[0] });
-        });
+        })
         await get("/book/reviews/"+this.state.id+"/"+this.state.star+"/"+this.state.pageNo+"/"+
                             this.state.sortState+"?page="+this.state.activePage)
         .then(response => {
@@ -164,7 +175,15 @@ export class Product extends Component {
     }
     async addProduct (bookId, amount,book_title,author_name,sub_price,book_cover_photo){
         await this.props.handleAddToCart(bookId, amount,book_title,author_name,sub_price,book_cover_photo);
-         this.setState({msg : <div className="alert alert-success mb-5" role="alert">This book is successfully added!</div>})
+        toast.success('This book has been added to your cart!', {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
     }
     render() {
         if(this.state.data){
@@ -172,12 +191,15 @@ export class Product extends Component {
                 <>
                 <Container>
                     <>
-                    <Row  key={this.state.data.book_title}>
+                    <ToastContainer />
+                    <Row >
                         <Col md={12} >
+                        <hr/>
                         <Breadcrumb>
                         <Breadcrumb.Item active>Category {this.state.data.category_name}</Breadcrumb.Item>
                         </Breadcrumb>
-                    </Col>
+                        <hr/>
+                         </Col>
                     <Col md={8}>
                         <Row>
                             <Col md={3}>
@@ -229,17 +251,17 @@ export class Product extends Component {
                                         >-</span>
                                     </div>
                                 </div>
-                                <div className="add-to-cart">
-                                    <button className="add-to-cart-btn" 
-                                    onClick={()=>this.addProduct(this.state.id,
-                                                                 this.state.buyQuantity,
-                                                                 this.state.data.book_title,
-                                                                 this.state.data.author_name,
-                                                                 this.state.data.sub_price,
-                                                                 this.state.data. book_cover_photo)}
+                                <br/>
+                                    <button className="primary-btn" 
+                                    onClick={()=>
+                                        this.addProduct(this.state.id,
+                                                        this.state.buyQuantity,
+                                                        this.state.data.book_title,
+                                                        this.state.data.author_name,
+                                                        this.state.data.sub_price,
+                                                        this.state.data. book_cover_photo)}
                                     >add to cart</button>
-                                </div>
-                                {this.state.msg}
+                                
                             </div>
                     </div>
                     </Col>
@@ -252,26 +274,26 @@ export class Product extends Component {
                                     <h1>{Number(this.state.data.avg_star).toFixed(2)} Star</h1>
                                 </Col>
                                 <Col md={12}>
-                                <Tabs
-                                defaultActiveKey="all"
-                                transition={false}
-                                onSelect={(k) => this.star(k)}
-                                className="mb-3"
-                                >
-                                    <Tab eventKey="all" title="All">
-                                    </Tab>
-                                    <Tab eventKey="5" title="5 STAR">
-                                    </Tab>
-                                    <Tab eventKey="4" title="4 STAR">
-                                    </Tab>
-                                    <Tab eventKey="3" title="3 STAR">
-                                    </Tab>
-                                    <Tab eventKey="2" title="2 STAR">
-                                    </Tab>
-                                    <Tab eventKey="1" title="1 STAR">
-                                    </Tab>
-                                </Tabs>
-
+                                <Breadcrumb>
+                                <Breadcrumb.Item onClick={() => this.star('all')}>
+                                    All
+                                </Breadcrumb.Item>
+                                <Breadcrumb.Item onClick={() => this.star('1')}>
+                                    1 STAR
+                                </Breadcrumb.Item>
+                                <Breadcrumb.Item onClick={() => this.star('2')}>
+                                    2 STAR
+                                </Breadcrumb.Item>
+                                <Breadcrumb.Item onClick={() => this.star('3')}>
+                                    3 STAR
+                                </Breadcrumb.Item>
+                                <Breadcrumb.Item onClick={() => this.star('4')}>
+                                    4 STAR
+                                </Breadcrumb.Item>
+                                <Breadcrumb.Item onClick={() => this.star('5')}>
+                                    5 STAR
+                                </Breadcrumb.Item>
+                                </Breadcrumb>
                                 </Col>
                                 <Row>
                 <Col md={12}>
@@ -306,13 +328,15 @@ export class Product extends Component {
                                 <hr/>
                             </div>
                         )}
+                    <div id="react-paginate">
                      <Pagination
-                    activePage={this.state.activePage}
-                    itemsCountPerPage={this.state.itemsCountPerPage}
-                    totalItemsCount={this.state.totalItemsCount}
-                    pageRangeDisplayed={5}
-                    onChange={this.handlePageChange}
-                />
+                        activePage={this.state.activePage}
+                        itemsCountPerPage={this.state.itemsCountPerPage}
+                        totalItemsCount={this.state.totalItemsCount}
+                        pageRangeDisplayed={5}
+                        onChange={this.handlePageChange}
+                        />
+                    </div>
                 </Col>
                
                 </>
@@ -355,15 +379,13 @@ export class Product extends Component {
                                         
                                     </div>
                                     <div className="add-to-cart">
-                                        <button type='submit' className="add-to-cart-btn"><i className="fa fa-envelope"></i> Submit review</button>
+                                        <button type='submit' className="primary-btn">Submit review</button>
                                     </div>
                                     </form>
                         </div>
                         </Col>
                     </Row>
                     </>
-                      
-    
                 </Container>
                 </>
             )
