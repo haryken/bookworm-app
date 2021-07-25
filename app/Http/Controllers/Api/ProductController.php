@@ -17,7 +17,7 @@ class ProductController extends Controller
                     ->join('authors', 'books.author_id', 'authors.id')
                     ->join('categories', 'categories.id', 'books.category_id')
                     ->where('books.id','like',$id)
-                    ->selectRaw('*')
+                    ->selectRaw('*,books.id')
                     ->SelectAvgStar()
                     ->SelectSubPrice()
                     ->SelectReviewsCount()

@@ -3,13 +3,7 @@
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
-use App\Models\Review;
-use App\Models\Category;
-use App\Models\Author;
 use Illuminate\Support\Facades\DB;
-use App\Http\Resources\BookResource;
-
-
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -34,10 +28,20 @@ class HomeController extends Controller
                 ->join('authors', 'books.author_id', 'authors.id')
                 ->join('categories', 'books.category_id', 'categories.id')
                 ->selectRaw('*,books.id')
-                ->SelectReviewsCount()
                 ->SelectSubPrice()
                 ->State()
-                ->orderBy('reviews_count', 'desc')
+                ->join(DB::raw("(select books.id, avg(reviews.rating_start::int)::float as avg_star
+                                from books 
+                                join reviews
+                                on books.id = reviews.book_id
+                                GROUP BY books.id ) as c"
+                            ),
+                                function($join)
+                                {
+                                    $join->on('c.id','=','books.id');
+                                }
+                    )
+                ->orderBy('avg_star', 'desc')
                 ->orderBy('sub_price','asc')
                 ->limit(8)
                 ->get();

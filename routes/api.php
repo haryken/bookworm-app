@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ShopController;
 use App\Http\Controllers\Api\HomeController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\FilterController;
-;
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -36,3 +37,5 @@ Route::get('/book/reviews/{id?}/{star?}/{pageno?}/{sort?}', [ProductController::
 Route::get('/authors', [ProductController::class,'authors']);
 Route::get('/categories', [ProductController::class,'categories']);
 Route::post('/book/review', [ProductController::class,'reviews']);
+/*Cart*/
+Route::post('/orders', [OrderController::class, 'orders']);

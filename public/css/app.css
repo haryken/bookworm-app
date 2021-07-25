@@ -101,7 +101,7 @@
     width: 100%;
   }
   
-  .primary-btn:hover, .primary-btn:focus {
+  .primary-btn:hover {
     opacity: 0.9;
     color: red;
     border-color: red;

@@ -3,13 +3,16 @@ import {get} from '../httpHelper';
 import {Col,Container,Row,Table,Figure,Button } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import axios from 'axios';
 export default class Cart extends Component {
     state = {
         items: JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [],
         carts: [],
         amounts: [],
         total: 0.0,
-        cartCount: localStorage.getItem('cart_count')!==null?parseInt(localStorage.getItem('cart_count')):0
+        cartCount: localStorage.getItem('cart_count')!==null?parseInt(localStorage.getItem('cart_count')):0,
+        ken: []
+
     }
     componentDidMount(){
         let totalcost = 0.0;
@@ -44,42 +47,43 @@ export default class Cart extends Component {
         }
         
     }
+    deleteItem(book_id){
+        let updateAmount = this.state.items.filter(item => (item.bookId != book_id));
+        localStorage.setItem('cart', JSON.stringify(updateAmount));
+        localStorage.setItem('cart_count',localStorage.getItem('cart')!==null?JSON.parse(localStorage.getItem('cart')).length:0);
+        this.props.handleCartRemove();
+    }
+    updateAll(){
+        let totalcost = 0.0;
+        localStorage.setItem('cart_count',localStorage.getItem('cart')!==null?JSON.parse(localStorage.getItem('cart')).length:0);
+        let item = JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [];
+        item.map((re,i)=>{
+            totalcost = totalcost + Number(re.amount)*Number(re.sub_price)
+        })
+        this.setState({
+        })
+        this.setState({
+            total: totalcost.toFixed(2),
+            items: JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [],
+            cartCount: localStorage.getItem('cart_count')!==null?parseInt(localStorage.getItem('cart_count')):0,
+        })
+        this.props.handleCartRemove();
+    }
+    updateItemCount(book_id){
+        let updateAmount = this.state.items.map(item => (
+            (item.bookId == book_id) ? { ...item, amount: item.amount - 1 } : item
+        ))
+        localStorage.removeItem('cart');
+        localStorage.setItem('cart', JSON.stringify(updateAmount));
+    }
     decreaseValue(book_id,amount){
-        let updateAmount;
         if (amount - 1 > 0) {
-
-            updateAmount = this.state.items.map(item => (
-                (item.bookId == book_id) ? { ...item, amount: item.amount - 1 } : item
-            ))
-            localStorage.removeItem('cart');
-            localStorage.setItem('cart', JSON.stringify(updateAmount));
-            let totalcost = 0.0;
-            let item = JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [];
-            item.map((re,i)=>{
-                totalcost = totalcost + Number(re.amount)*Number(re.sub_price)
-            })
-            this.setState({
-                items: JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [],
-                total: totalcost.toFixed(2)
-            })
-            
+            this.updateItemCount(book_id);
+            this.updateAll();
         }
         else if (amount - 1 == 0) {
-            updateAmount = this.state.items.filter(item => (item.bookId != book_id));
-            localStorage.setItem('cart', JSON.stringify(updateAmount));
-            localStorage.setItem('cart_count',localStorage.getItem('cart')!==null?JSON.parse(localStorage.getItem('cart')).length:0);
-
-            let totalcost = 0.0;
-            let item = JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [];
-            item.map((re,i)=>{
-                totalcost = totalcost + Number(re.amount)*Number(re.sub_price)
-            })
-            this.setState({
-                items: JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [],
-                total: totalcost.toFixed(2),
-                cartCount: localStorage.getItem('cart_count')!==null?parseInt(localStorage.getItem('cart_count')):0
-            })
-            this.props.handleCartRemove();
+            this.deleteItem(book_id);
+            this.updateAll();
             toast.success('This book has been remove!', {
                 position: "bottom-left",
                 autoClose: 3000,
@@ -98,10 +102,84 @@ export default class Cart extends Component {
         e.defaultValue();
     }
     handlePlaceOrder(){
-        console.log("click")
+        let items = JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [];
+        let order_items = [];
+        if(items.length == 0){
+            toast.error('Your cart is empty!', {
+                position: "bottom-left",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }else{
+            items.map((value)=>{
+                order_items.push({
+                'book_id': value.bookId,
+                'quantity': value.amount,
+                'price': value.sub_price,
+                'book_title': value.book_title
+                });
+            }),
+            axios.post('/api/orders',{
+                items: order_items
+            })
+            .then((response) => {
+                    localStorage.removeItem('cart');
+                    this.updateAll();
+                    toast.success('Order successfull!', {
+                        position: "bottom-right",
+                        autoClose: 10000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                })
+            .catch(error => {
+                let unavailable_book = error.response.data.unavailable_book;
+                let invalid_quantity = error.response.data.invalid_quantity;
+                if (unavailable_book.length !== 0) {
+                    unavailable_book.map((book,index)=>{
+                        this.deleteItem(book.book_id);
+                    })
+                    toast.error("Some books unavailable!", {
+                        position: "bottom-right",
+                        autoClose: 10000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                    this.updateAll()
+
+                }
+                if (invalid_quantity.length !== 0) {
+                    invalid_quantity.map((book,index)=>{
+                        this.deleteItem(book.book_id);
+                    })
+                    toast.error("Some books wrong amount!", {
+                        position: "bottom-right",
+                        autoClose: 10000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                    this.updateAll()
+
+                }
+                
+            });
+        }
+
     }
     render() {
-        if(this.state.cartCount>0){
             return (
                 <>
                 <Container>
@@ -192,7 +270,7 @@ export default class Cart extends Component {
                         <Table>
                                     <thead>
                                             <tr height="60px">
-                                                <th colSpan="2">Cart totals </th>
+                                                <th colSpan="2"><h3>Cart totals</h3>  </th>
                                             </tr>
                                     </thead>
                                     <tbody>
@@ -217,18 +295,6 @@ export default class Cart extends Component {
                 </Container>
                 </>
             )
-        }else{
-            return(
-                <>
-                <Container>
-                    <Row>
-                <p>Không có cuốn sách nào được chọn</p>
-
-                    </Row>
-                </Container>
-                </>
-            )
-        }
         
     }
 }
