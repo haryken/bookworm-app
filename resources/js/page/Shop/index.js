@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Container, Row, Col,Breadcrumb} from 'react-bootstrap';
+import {Container, Row, Col,Breadcrumb,Accordion,Card  } from 'react-bootstrap';
 import { UncontrolledCollapse } from 'reactstrap';
 import {get} from "../httpHelper";
 import Pagination from "react-js-pagination";
@@ -93,63 +93,78 @@ export class Shop extends Component {
                          </Col>
                     <Col md={3}>
                         <Row>
-                            <Col md={12}>
-                            <h2 className="title">Filter</h2>
-                            <div id="toggler" className="book-border"><h3>Category</h3></div>
-                            <UncontrolledCollapse toggler="#toggler">
-                            {this.state.categories.map(cate=>{
+                        <Col>
+                        <Accordion>
+                        <Card>
+                            <Accordion.Toggle as={Card.Header} eventKey="0">
+                                Category
+                            </Accordion.Toggle>
+
+                            <Accordion.Collapse eventKey="0">
+                                <Card.Body>
+                                {this.state.categories.map(cate=>{
                                 return(
                                 <div key={cate.category_name} 
-                                className="book-border"
                                 onClick={event => this.handelFilter("/category/"+cate.id,'Category '+cate.category_name)}
                                 >
                                     Category {cate.category_name}
                                 </div>
                                 )
                             })}
-                            </UncontrolledCollapse>
-                            <div id="toggler1" className="book-border"><h3>Authur</h3></div>
-                            <UncontrolledCollapse toggler="#toggler1">
-                            {this.state.authors.map(cate=>{
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                        <Card>
+                            <Accordion.Toggle as={Card.Header} eventKey="1">
+                                Author
+                            </Accordion.Toggle>
+
+                            <Accordion.Collapse eventKey="1">
+                                <Card.Body>
+                                {this.state.authors.map(cate=>{
                                 return(
                                 <div key={cate.author_name}
-                                className="book-border"
                                 onClick={event => this.handelFilter("/author/"+cate.id,'Author '+cate.author_name)}
                                 >
                                     {cate.author_name}
                                 </div>
                                 )
                             })}
-                            </UncontrolledCollapse>
-                            <div id="toggler2" className="book-border"><h3>Rating Review</h3></div>
-                            <UncontrolledCollapse toggler="#toggler2">
-                            <div 
-                            className="book-border"
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                        <Card>
+                            <Accordion.Toggle as={Card.Header} eventKey="3">
+                                Rating reviews
+                            </Accordion.Toggle>
+
+                            <Accordion.Collapse eventKey="3">
+                                <Card.Body>
+                                <div 
                             onClick={event => this.handelFilter("/star/1",'1 Star')}>
                                 1 Star
                             </div>
                             <div onClick={event => this.handelFilter("/star/2",'2 Star')}
-                            className="book-border"
                             >
                                 2 Star
                             </div>
                             <div
-                            className="book-border"
                             onClick={event => this.handelFilter("/star/3",'3 Star')}>
                                 3 Star
                             </div>
                             <div 
-                            className="book-border"
                             onClick={event => this.handelFilter("/star/4",'4 Star')}>
                                 4 Star
                             </div>
                             <div
-                            className="book-border"
                             onClick={event => this.handelFilter("/star/5",'5 Star')}>
                                 5 Star
                             </div>
-                            </UncontrolledCollapse>
-                            </Col>
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                    </Accordion>
+                        </Col>
                         </Row>
                     </Col>
                     <Col md={9}>

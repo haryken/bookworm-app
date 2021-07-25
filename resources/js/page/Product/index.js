@@ -190,6 +190,9 @@ export class Product extends Component {
             progress: undefined,
         });
     }
+    handleAmount(e){
+        e.preventDefault();
+    }
     render() {
         if(this.state.data){
             return (
@@ -247,7 +250,11 @@ export class Product extends Component {
                                 <div className="qty-label qty">
                                     Quantity
                                     <div className="input-number">
-                                        <input type="number" value={this.state.buyQuantity}/>
+                                        <input type="number"
+                                        onChange={(e)=>this.handleAmount(e)}
+                                        value={this.state.buyQuantity}
+                                        
+                                        />
                                         <span className="qty-up"
                                         onClick={()=>this.increaseBuyQuantity()}
                                         >+</span>
