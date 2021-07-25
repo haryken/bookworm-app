@@ -7,7 +7,7 @@ use App\Models\Review;
 use App\Models\Category;
 use App\Models\Author;
 use App\Http\Resources\ReviewResource;
-
+use Hamcrest\Core\HasToString;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -63,5 +63,20 @@ class ProductController extends Controller
             return response(new ReviewResource($review), 201);
         }
 
+    }
+    public function countReview($id)
+    {
+        $query =  Book::find((int) $id);
+        if (empty($query) || $id === null) {
+            return response()->json(['error' => 'Book Not found'], 404);
+        }
+        $star = array();
+        array_push($star, Book::findOrFail((int) $id)->reviews()->count());
+
+        for ($i = 1; $i <= 5; $i++) {
+            $cnt = Book::find((int) $id)->reviews();
+            array_push($star,$cnt->where('rating_start', strval($i))->count());
+        }
+        return json_encode($star);
     }
 }

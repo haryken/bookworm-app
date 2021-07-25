@@ -10,7 +10,7 @@ export class Product extends Component {
     constructor() {
         super();
         this.state = {
-            pageNo: 1,
+            pageNo: 5,
             sortState: 'desc',
             activePage: 1,
             itemsCountPerPage: 1,
@@ -24,7 +24,8 @@ export class Product extends Component {
             finalPrice: '',
             delPrice: '',
             id: 0,
-            cartCount: 0
+            cartCount: 0,
+            count_star:[]
             
         }
         this.handlePageChange = this.handlePageChange.bind(this);
@@ -56,7 +57,11 @@ export class Product extends Component {
             
             });
         });
-
+        await get("/book/reviewscount/"+this.state.id).then((response)=>{
+            this.setState({
+                count_star: response.data
+            })
+        })
     }
     handlePageChange(pageNumber) {
         get("/book/reviews/"+this.state.id+"/"+this.state.star+"/"+this.state.pageNo+"/"+this.state.sortState+"?page=" + pageNumber)
@@ -276,22 +281,22 @@ export class Product extends Component {
                                 <Col md={12}>
                                 <Breadcrumb>
                                 <Breadcrumb.Item onClick={() => this.star('all')}>
-                                    All
+                                    All({this.state.count_star[0]})
                                 </Breadcrumb.Item>
                                 <Breadcrumb.Item onClick={() => this.star('1')}>
-                                    1 STAR
+                                    1 STAR({this.state.count_star[1]})
                                 </Breadcrumb.Item>
                                 <Breadcrumb.Item onClick={() => this.star('2')}>
-                                    2 STAR
+                                    2 STAR({this.state.count_star[2]})
                                 </Breadcrumb.Item>
                                 <Breadcrumb.Item onClick={() => this.star('3')}>
-                                    3 STAR
+                                    3 STAR({this.state.count_star[3]})
                                 </Breadcrumb.Item>
                                 <Breadcrumb.Item onClick={() => this.star('4')}>
-                                    4 STAR
+                                    4 STAR({this.state.count_star[4]})
                                 </Breadcrumb.Item>
                                 <Breadcrumb.Item onClick={() => this.star('5')}>
-                                    5 STAR
+                                    5 STAR({this.state.count_star[5]})
                                 </Breadcrumb.Item>
                                 </Breadcrumb>
                                 </Col>
@@ -308,15 +313,18 @@ export class Product extends Component {
                             </select>
                             <select className="input-select"  
                             onChange={event => this.numOfComment(event.target.value,this.state.sortState)}>
-                                <option value="1">show 20</option>
-                                <option value="4">show 50</option>
+                                <option value="5">show 5</option>
+                                <option value="10">show 10</option>
+                                <option value="15">show 15</option>
+                                <option value="20">show 20</option>
+                                <option value="50">show 50</option>
                             </select>
                         </div>
                     </div>
                 </Col>
                 <>
                 <Col md={12}>
-                {this.state.items.map(item =>
+                    {this.state.items.map(item =>
                             <div key={item.id}>
                                 <h4>Reviews Title {item.review_title} | {item.rating_start} star </h4> 
                                 <div className="review-body">
@@ -327,7 +335,7 @@ export class Product extends Component {
                                 </div>
                                 <hr/>
                             </div>
-                        )}
+                    )}
                     <div id="react-paginate">
                      <Pagination
                         activePage={this.state.activePage}

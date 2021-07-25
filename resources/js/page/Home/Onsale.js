@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import {Link} from "react-router-dom";
 import {get} from "../httpHelper";
+import ReactTooltip from 'react-tooltip';
 import {Col,Container,Row,Button} from 'react-bootstrap';
  class Onsale extends React.Component {
   constructor() {
@@ -69,15 +70,20 @@ render() {
                         {this.state.data.map((result,index) => {
                           if(index < 10){
                           return (
-                              <div className="product" key={result.book_title}>
+                              <div key={result.id}>
+                              <div className="product">
                                   <div className="product-img">
                                       <img src={"./img/"+result.book_cover_photo+".jpg"} height="300px" alt=""/>
                                   </div>
                                   <div className="product-body" style={{height: "150px"}}>
-                                      <Link to={"/book/"+result.id}>{result.book_title}</Link>
                                       <p className="author-name">   {result.author_name}</p>
-                                      <h4 className="product-price">{result.sub_price} <del className="product-old-price">{result.book_price}</del></h4>
+                                      <p data-tip='' data-for={result.book_title+'4'}><Link to={"/book/"+result.id}>{result.book_title}</Link></p>
+                                      <ReactTooltip id={result.book_title+'4'} getContent={() => { return "View detail" }}/>
                                   </div>
+                                  <div className="product-body">
+                                       <h4 className="product-price">{result.sub_price} <del className="product-old-price">{result.book_price}</del></h4>
+                                  </div>
+                              </div>
                               </div>
                           )}})}
                   </Slider>
