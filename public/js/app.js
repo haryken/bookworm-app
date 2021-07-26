@@ -5505,7 +5505,7 @@ var Cart = /*#__PURE__*/function (_Component) {
       });
       localStorage.setItem('cart', JSON.stringify(updateAmount));
       localStorage.setItem('cart_count', localStorage.getItem('cart') !== null ? JSON.parse(localStorage.getItem('cart')).length : 0);
-      this.props.handleCartRemove();
+      this.props.handleUpdateCartCount();
     }
   }, {
     key: "updateAll",
@@ -5522,7 +5522,7 @@ var Cart = /*#__PURE__*/function (_Component) {
         items: JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [],
         cartCount: localStorage.getItem('cart_count') !== null ? parseInt(localStorage.getItem('cart_count')) : 0
       });
-      this.props.handleCartRemove();
+      this.props.handleUpdateCartCount();
     }
   }, {
     key: "updateItemCount",
@@ -5711,43 +5711,63 @@ var Cart = /*#__PURE__*/function (_Component) {
                           })]
                         })
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h4", {
-                          children: ["$", result.sub_price, " "]
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                           className: "product-details",
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                            className: "add-to-cart",
+                            className: "price",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h3", {
+                              className: "product-price",
+                              children: ["$", result.sub_price, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("del", {
+                                className: "product-old-price",
+                                children: result.delPrice ? "$" + result.delPrice : ""
+                              })]
+                            })
+                          })
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                          className: "price",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                            className: "product-details",
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                              className: "qty-label",
-                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                                className: "input-number",
-                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", (_jsx2 = {
-                                  type: "number",
-                                  value: "1"
-                                }, _defineProperty(_jsx2, "value", result.amount), _defineProperty(_jsx2, "onChange", function onChange(event) {
-                                  return _this3.inputChangedHandler(event);
-                                }), _jsx2)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-                                  className: "qty-up",
-                                  onClick: function onClick() {
-                                    return _this3.increaseValue(result.bookId, result.amount);
-                                  },
-                                  children: "+"
-                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-                                  className: "qty-down",
-                                  onClick: function onClick() {
-                                    return _this3.decreaseValue(result.bookId, result.amount);
-                                  },
-                                  children: "-"
-                                })]
+                              className: "add-to-cart",
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                                className: "qty-label",
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                                  className: "input-number",
+                                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", (_jsx2 = {
+                                    type: "number",
+                                    value: "1"
+                                  }, _defineProperty(_jsx2, "value", result.amount), _defineProperty(_jsx2, "onChange", function onChange(event) {
+                                    return _this3.inputChangedHandler(event);
+                                  }), _jsx2)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                                    className: "qty-up",
+                                    onClick: function onClick() {
+                                      return _this3.increaseValue(result.bookId, result.amount);
+                                    },
+                                    children: "+"
+                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                                    className: "qty-down",
+                                    onClick: function onClick() {
+                                      return _this3.decreaseValue(result.bookId, result.amount);
+                                    },
+                                    children: "-"
+                                  })]
+                                })
                               })
                             })
                           })
                         })
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h4", {
-                          children: ["$", Number(result.sub_price * result.amount).toFixed(2), " "]
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                          className: "product-details",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                            className: "price",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h3", {
+                              className: "product-price",
+                              children: ["$", Number(result.sub_price * result.amount).toFixed(2)]
+                            })
+                          })
                         })
                       })]
                     }, result.book_title);
@@ -5760,26 +5780,39 @@ var Cart = /*#__PURE__*/function (_Component) {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tr", {
                     height: "60px",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("th", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
                       colSpan: "2",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
                         children: "Cart totals"
-                      }), "  "]
+                      })
                     })
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tbody", {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("strong", {
-                          children: "TOTAL"
+                        className: "product-details",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                          className: "price",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("strong", {
+                              children: "Total"
+                            })
+                          })
                         })
                       })
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("strong", {
-                          className: "order-total",
-                          children: ["$", this.state.total]
+                        className: "product-details",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                          className: "price",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
+                            className: "product-price",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("strong", {
+                              className: "order-total",
+                              children: ["$", this.state.total]
+                            })
+                          })
                         })
                       })
                     })]
@@ -6824,6 +6857,22 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -6843,6 +6892,8 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -6866,6 +6917,44 @@ var Product = /*#__PURE__*/function (_Component) {
     _classCallCheck(this, Product);
 
     _this = _super.call(this);
+
+    _defineProperty(_assertThisInitialized(_this), "handleAddToCart", function (book_id, amount, book_title, author_name, sub_price, book_cover_photo, delPrice) {
+      var carts = JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [];
+
+      if (_this.isBookAdded(book_id)) {
+        var newCart = carts.map(function (book) {
+          return book.bookId === book_id && book.amount + amount <= 8 ? _objectSpread(_objectSpread({}, book), {}, {
+            amount: book.amount + amount
+          }) : _objectSpread(_objectSpread({}, book), {}, {
+            amount: 8
+          });
+        });
+
+        _this.setState({
+          cart: newCart
+        }, function () {
+          localStorage.setItem('cart', JSON.stringify(_this.state.cart));
+          localStorage.setItem('cart_count', _this.state.cart.length);
+        });
+      } else {
+        _this.setState({
+          cart: [].concat(_toConsumableArray(carts), [{
+            'bookId': book_id,
+            'amount': amount,
+            'sub_price': sub_price,
+            'book_cover_photo': book_cover_photo,
+            'delPrice': delPrice,
+            'author_name': author_name,
+            'book_title': book_title
+          }]),
+          cartCount: _this.state.cartCount + 1
+        }, function () {
+          localStorage.setItem('cart', JSON.stringify(_this.state.cart));
+          localStorage.setItem('cart_count', _this.state.cart.length);
+        });
+      }
+    });
+
     _this.state = {
       pageNo: 5,
       sortState: 'desc',
@@ -6881,8 +6970,9 @@ var Product = /*#__PURE__*/function (_Component) {
       finalPrice: '',
       delPrice: '',
       id: 0,
-      cartCount: 0,
-      count_star: []
+      count_star: [],
+      cart: JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [],
+      cartCount: localStorage.getItem('cart_count') !== null ? parseInt(localStorage.getItem('cart_count')) : 0
     };
     _this.handlePageChange = _this.handlePageChange.bind(_assertThisInitialized(_this));
     return _this;
@@ -7049,9 +7139,9 @@ var Product = /*#__PURE__*/function (_Component) {
       return star;
     }()
   }, {
-    key: "handldeform",
+    key: "handldeformReview",
     value: function () {
-      var _handldeform = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(e) {
+      var _handldeformReview = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(e) {
         var _this6 = this;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
@@ -7126,11 +7216,11 @@ var Product = /*#__PURE__*/function (_Component) {
         }, _callee4, this);
       }));
 
-      function handldeform(_x4) {
-        return _handldeform.apply(this, arguments);
+      function handldeformReview(_x4) {
+        return _handldeformReview.apply(this, arguments);
       }
 
-      return handldeform;
+      return handldeformReview;
     }()
   }, {
     key: "handleReviewTitleChange",
@@ -7169,17 +7259,25 @@ var Product = /*#__PURE__*/function (_Component) {
       }
     }
   }, {
+    key: "isBookAdded",
+    value: function isBookAdded(bookId) {
+      return this.state.cart.some(function (item) {
+        return bookId === item.bookId;
+      });
+    }
+  }, {
     key: "addProduct",
     value: function () {
-      var _addProduct = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(bookId, amount, book_title, author_name, sub_price, book_cover_photo) {
+      var _addProduct = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(bookId, amount, book_title, author_name, sub_price, book_cover_photo, delPrice) {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return this.props.handleAddToCart(bookId, amount, book_title, author_name, sub_price, book_cover_photo);
+                return this.handleAddToCart(bookId, amount, book_title, author_name, sub_price, book_cover_photo, delPrice);
 
               case 2:
+                this.props.handleUpdateCartCount();
                 react_toastify__WEBPACK_IMPORTED_MODULE_7__.toast.success('This book has been added to your cart!', {
                   position: "bottom-right",
                   autoClose: 5000,
@@ -7190,7 +7288,7 @@ var Product = /*#__PURE__*/function (_Component) {
                   progress: undefined
                 });
 
-              case 3:
+              case 4:
               case "end":
                 return _context5.stop();
             }
@@ -7198,7 +7296,7 @@ var Product = /*#__PURE__*/function (_Component) {
         }, _callee5, this);
       }));
 
-      function addProduct(_x5, _x6, _x7, _x8, _x9, _x10) {
+      function addProduct(_x5, _x6, _x7, _x8, _x9, _x10, _x11) {
         return _addProduct.apply(this, arguments);
       }
 
@@ -7268,9 +7366,9 @@ var Product = /*#__PURE__*/function (_Component) {
                         className: "price",
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("h3", {
                           className: "product-price",
-                          children: ["$", this.state.finalPrice, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("del", {
+                          children: ["$", this.state.finalPrice, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("del", {
                             className: "product-old-price",
-                            children: ["$", this.state.delPrice]
+                            children: this.state.delPrice ? "$" + this.state.delPrice : ""
                           })]
                         })
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
@@ -7300,7 +7398,7 @@ var Product = /*#__PURE__*/function (_Component) {
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
                         className: "primary-btn",
                         onClick: function onClick() {
-                          return _this7.addProduct(_this7.state.id, _this7.state.buyQuantity, _this7.state.data.book_title, _this7.state.data.author_name, _this7.state.data.sub_price, _this7.state.data.book_cover_photo);
+                          return _this7.addProduct(_this7.state.id, _this7.state.buyQuantity, _this7.state.data.book_title, _this7.state.data.author_name, _this7.state.data.sub_price, _this7.state.data.book_cover_photo, _this7.state.delPrice);
                         },
                         children: "add to cart"
                       })]
@@ -7399,37 +7497,35 @@ var Product = /*#__PURE__*/function (_Component) {
                             })]
                           })]
                         })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__.default, {
-                          md: 12,
-                          children: [this.state.items.map(function (item) {
-                            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("h4", {
-                                children: ["Reviews Title ", item.review_title, " | ", item.rating_start, " star "]
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-                                className: "review-body",
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
-                                  children: [item.review_details, " "]
-                                })
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-                                className: "review-heading",
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
-                                  className: "date",
-                                  children: item.review_date
-                                })
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("hr", {})]
-                            }, item.id);
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-                            id: "react-paginate",
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_js_pagination__WEBPACK_IMPORTED_MODULE_3__.default, {
-                              activePage: this.state.activePage,
-                              itemsCountPerPage: this.state.itemsCountPerPage,
-                              totalItemsCount: this.state.totalItemsCount,
-                              pageRangeDisplayed: 5,
-                              onChange: this.handlePageChange
-                            })
-                          })]
-                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__.default, {
+                        md: 12,
+                        children: [this.state.items.map(function (item) {
+                          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("h4", {
+                              children: ["Reviews Title ", item.review_title, " | ", item.rating_start, " star "]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                              className: "review-body",
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
+                                children: [item.review_details, " "]
+                              })
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                              className: "review-heading",
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+                                className: "date",
+                                children: item.review_date
+                              })
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("hr", {})]
+                          }, item.id);
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                          id: "react-paginate",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_js_pagination__WEBPACK_IMPORTED_MODULE_3__.default, {
+                            activePage: this.state.activePage,
+                            itemsCountPerPage: this.state.itemsCountPerPage,
+                            totalItemsCount: this.state.totalItemsCount,
+                            pageRangeDisplayed: 5,
+                            onChange: this.handlePageChange
+                          })
+                        })]
                       })]
                     })]
                   })
@@ -7441,11 +7537,11 @@ var Product = /*#__PURE__*/function (_Component) {
                       className: "price",
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h4", {
                         className: "",
-                        children: "write a review"
+                        children: "Write a review"
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("hr", {})]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("form", {
                       onSubmit: function onSubmit(e) {
-                        return _this7.handldeform(e);
+                        return _this7.handldeformReview(e);
                       },
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
                         className: "qty-label qty",
@@ -7553,22 +7649,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -7624,7 +7704,7 @@ var Master = /*#__PURE__*/function (_Component) {
       cartCount: localStorage.getItem('cart_count') !== null ? parseInt(localStorage.getItem('cart_count')) : 0
     });
 
-    _defineProperty(_assertThisInitialized(_this), "handleCartRemove", function () {
+    _defineProperty(_assertThisInitialized(_this), "handleUpdateCartCount", function () {
       localStorage.setItem('cart_count', localStorage.getItem('cart') !== null ? JSON.parse(localStorage.getItem('cart')).length : 0);
 
       _this.setState({
@@ -7632,53 +7712,10 @@ var Master = /*#__PURE__*/function (_Component) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "handleAddToCart", function (book_id, amount, book_title, author_name, sub_price, book_cover_photo) {
-      var carts = JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [];
-
-      if (_this.isBookAdded(book_id)) {
-        var newCart = carts.map(function (book) {
-          return book.bookId === book_id && book.amount + amount <= 8 ? _objectSpread(_objectSpread({}, book), {}, {
-            amount: book.amount + amount
-          }) : _objectSpread(_objectSpread({}, book), {}, {
-            amount: 8
-          });
-        });
-
-        _this.setState({
-          cart: newCart
-        }, function () {
-          localStorage.setItem('cart', JSON.stringify(_this.state.cart));
-          localStorage.setItem('cart_count', _this.state.cart.length);
-        });
-      } else {
-        _this.setState({
-          cart: [].concat(_toConsumableArray(carts), [{
-            'bookId': book_id,
-            'amount': amount,
-            'book_title': book_title,
-            'author_name': author_name,
-            'sub_price': sub_price,
-            'book_cover_photo': book_cover_photo
-          }]),
-          cartCount: _this.state.cartCount + 1
-        }, function () {
-          localStorage.setItem('cart', JSON.stringify(_this.state.cart));
-          localStorage.setItem('cart_count', _this.state.cart.length);
-        });
-      }
-    });
-
     return _this;
   }
 
   _createClass(Master, [{
-    key: "isBookAdded",
-    value: function isBookAdded(bookId) {
-      return this.state.cart.some(function (item) {
-        return bookId === item.bookId;
-      });
-    }
-  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.BrowserRouter, {
@@ -7688,7 +7725,7 @@ var Master = /*#__PURE__*/function (_Component) {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
             path: "/book/:id",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Product__WEBPACK_IMPORTED_MODULE_5__.default, {
-              handleAddToCart: this.handleAddToCart
+              handleUpdateCartCount: this.handleUpdateCartCount
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
             exact: true,
@@ -7698,7 +7735,7 @@ var Master = /*#__PURE__*/function (_Component) {
             exact: true,
             path: "/cart",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Cart__WEBPACK_IMPORTED_MODULE_8__.default, {
-              handleCartRemove: this.handleCartRemove
+              handleUpdateCartCount: this.handleUpdateCartCount
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
             exact: true,

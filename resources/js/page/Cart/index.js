@@ -9,7 +9,7 @@ export default class Cart extends Component {
         super(props);
         this.timer = null;
         this.state = {
-            items: JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [],
+        items: JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [],
         carts: [],
         amounts: [],
         total: 0.0,
@@ -59,7 +59,7 @@ export default class Cart extends Component {
         let updateAmount = this.state.items.filter(item => (item.bookId != book_id));
         localStorage.setItem('cart', JSON.stringify(updateAmount));
         localStorage.setItem('cart_count',localStorage.getItem('cart')!==null?JSON.parse(localStorage.getItem('cart')).length:0);
-        this.props.handleCartRemove();
+        this.props.handleUpdateCartCount();
     }
     updateAll(){
         let totalcost = 0.0;
@@ -75,7 +75,7 @@ export default class Cart extends Component {
             items: JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [],
             cartCount: localStorage.getItem('cart_count')!==null?parseInt(localStorage.getItem('cart_count')):0,
         })
-        this.props.handleCartRemove();
+        this.props.handleUpdateCartCount();
     }
     updateItemCount(book_id){
         let updateAmount = this.state.items.map(item => (
@@ -244,11 +244,18 @@ export default class Cart extends Component {
                                             </Row>
                                             </td>
                                             <td>
-                                                <h4>${result.sub_price} </h4>
+                                            <div className="product-details">
+                                                <div className="price">
+                                                    <h3 className="product-price">${result.sub_price}
+                                                        <del className="product-old-price">{result.delPrice ? "$"+result.delPrice: ""}</del>
+                                                    </h3>
+                                                </div>
+                                            </div>
                                             </td>
           
                                             <td>
-                                            <div className="product-details">
+                                            <div className="price">
+                                                <div className="product-details">
                                                     <div className="add-to-cart">
                                                         <div className="qty-label">
                                                             <div className="input-number">
@@ -264,10 +271,15 @@ export default class Cart extends Component {
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
                                                 
                                             </td>
                                               <td>
-                                                  <h4>${Number(result.sub_price*result.amount).toFixed(2)} </h4>
+                                                <div className="product-details">
+                                                    <div className="price">
+                                                        <h3 className="product-price">${Number(result.sub_price*result.amount).toFixed(2)}</h3>
+                                                    </div>
+                                                </div>
                                               </td>
                                          </tr>
                                          )
@@ -282,16 +294,24 @@ export default class Cart extends Component {
                         <Table>
                                     <thead>
                                             <tr height="60px">
-                                                <th colSpan="2"><h3>Cart totals</h3>  </th>
+                                                <th colSpan="2"><h4>Cart totals</h4></th>
                                             </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>
-                                                 <div><strong>TOTAL</strong></div>
+                                                 <div className="product-details">
+                                                    <div className="price">
+                                                        <h4><strong>Total</strong></h4>
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td>
-                                                <div><strong className="order-total">${this.state.total}</strong></div>
+                                                <div className="product-details">
+                                                    <div className="price">
+                                                        <h3 className="product-price"><strong className="order-total">${this.state.total}</strong></h3>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>

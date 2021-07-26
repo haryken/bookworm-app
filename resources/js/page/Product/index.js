@@ -24,8 +24,9 @@ export class Product extends Component {
             finalPrice: '',
             delPrice: '',
             id: 0,
-            cartCount: 0,
-            count_star:[]
+            count_star:[],
+            cart: JSON.parse(localStorage.getItem('cart'))!==null?JSON.parse(localStorage.getItem('cart')):[],
+            cartCount: localStorage.getItem('cart_count')!==null?parseInt(localStorage.getItem('cart_count')):0
             
         }
         this.handlePageChange = this.handlePageChange.bind(this);
@@ -108,7 +109,7 @@ export class Product extends Component {
           });
       });
     }
-    async handldeform(e){
+    async handldeformReview(e){
         e.preventDefault();
         await axios.post('http://127.0.0.1:8000/api/book/review', {
             book_id: this.state.id,
@@ -195,8 +196,45 @@ export class Product extends Component {
             })
         }
     }
-    async addProduct (bookId, amount,book_title,author_name,sub_price,book_cover_photo){
-        await this.props.handleAddToCart(bookId, amount,book_title,author_name,sub_price,book_cover_photo);
+    isBookAdded(bookId){
+        return this.state.cart.some(item => bookId === item.bookId);
+      }
+    handleAddToCart = (book_id, amount,book_title,author_name,sub_price,book_cover_photo,delPrice) => {
+        let carts = JSON.parse(localStorage.getItem('cart'))!==null?JSON.parse(localStorage.getItem('cart')):[];
+        if (this.isBookAdded(book_id)) {
+          let newCart = carts.map(book => (
+                                    (book.bookId === book_id && book.amount+amount<=8)
+                                    ?{ ...book, amount: book.amount+amount }
+                                    :{ ...book, amount:8 }
+                                  ))
+          this.setState({cart: newCart },()=>{
+                                localStorage.setItem('cart', JSON.stringify(this.state.cart))
+                                localStorage.setItem('cart_count',this.state.cart.length)
+                        });
+        }
+        else
+        {
+          this.setState({
+                          cart: [...carts,{
+                                'bookId': book_id,
+                                'amount': amount,
+                                'sub_price':sub_price,
+                                'book_cover_photo':book_cover_photo,
+                                'delPrice':delPrice,
+                                'author_name':author_name,
+                                'book_title':book_title
+
+                                }],
+                           cartCount: this.state.cartCount+1},
+                          ()=> {
+                                localStorage.setItem('cart', JSON.stringify(this.state.cart));
+                                localStorage.setItem('cart_count',this.state.cart.length)
+                        })
+        }
+      }
+    async addProduct (bookId, amount,book_title,author_name,sub_price,book_cover_photo,delPrice){
+        await this.handleAddToCart(bookId, amount,book_title,author_name,sub_price,book_cover_photo,delPrice);
+        this.props.handleUpdateCartCount();
         toast.success('This book has been added to your cart!', {
             position: "bottom-right",
             autoClose: 5000,
@@ -219,11 +257,11 @@ export class Product extends Component {
                     <ToastContainer />
                     <Row >
                         <Col md={12} >
-                        <hr/>
-                        <Breadcrumb>
-                        <Breadcrumb.Item active>Category {this.state.data.category_name}</Breadcrumb.Item>
-                        </Breadcrumb>
-                        <hr/>
+                            <hr/>
+                            <Breadcrumb>
+                            <Breadcrumb.Item active>Category {this.state.data.category_name}</Breadcrumb.Item>
+                            </Breadcrumb>
+                            <hr/>
                          </Col>
                     <Col md={8}>
                         <Row>
@@ -262,7 +300,9 @@ export class Product extends Component {
                     <div>
                         <div className="product-details">
                                 <div className="price">
-                                    <h3 className="product-price">${this.state.finalPrice}<del className="product-old-price">${this.state.delPrice}</del></h3>
+                                    <h3 className="product-price">${this.state.finalPrice}
+                                        <del className="product-old-price">{this.state.delPrice ? "$"+this.state.delPrice: ""}</del>
+                                    </h3>
                                 </div>
                                 <div className="qty-label qty">
                                     Quantity
@@ -288,7 +328,9 @@ export class Product extends Component {
                                                         this.state.data.book_title,
                                                         this.state.data.author_name,
                                                         this.state.data.sub_price,
-                                                        this.state.data. book_cover_photo)}
+                                                        this.state.data.book_cover_photo,
+                                                        this.state.delPrice
+                                                        )}
                                     >add to cart</button>
                                 
                             </div>
@@ -325,63 +367,60 @@ export class Product extends Component {
                                 </Breadcrumb>
                                 </Col>
                                 <Row>
-                <Col md={12}>
-                    <div className="store-filter clearfix">
-                        <span className="store-qty">Showing {this.state.pageNo*this.state.activePage-this.state.pageNo+1}-{this.state.pageNo*this.state.activePage} of {this.state.totalItemsCount} {this.state.demo}</span>
-                        <div className="store-sort">
-                            <select className="input-select"
-                             onChange={event => this.numOfComment(this.state.pageNo,event.target.value)}
-                             >
-                                <option value="desc">Sort by date newest to oldest</option>
-                                <option value="asc">Sort by date oldest to newest</option>
-                            </select>
-                            <select className="input-select"  
-                            onChange={event => this.numOfComment(event.target.value,this.state.sortState)}>
-                                <option value="5">show 5</option>
-                                <option value="10">show 10</option>
-                                <option value="15">show 15</option>
-                                <option value="20">show 20</option>
-                                <option value="50">show 50</option>
-                            </select>
-                        </div>
-                    </div>
-                </Col>
-                <>
-                <Col md={12}>
-                    {this.state.items.map(item =>
-                            <div key={item.id}>
-                                <h4>Reviews Title {item.review_title} | {item.rating_start} star </h4> 
-                                <div className="review-body">
-                                    <p>{item.review_details} </p>
-                                </div>
-                                <div className="review-heading">
-                                    <p className="date">{item.review_date}</p>
-                                </div>
-                                <hr/>
-                            </div>
-                    )}
-                    <div id="react-paginate">
-                     <Pagination
-                        activePage={this.state.activePage}
-                        itemsCountPerPage={this.state.itemsCountPerPage}
-                        totalItemsCount={this.state.totalItemsCount}
-                        pageRangeDisplayed={5}
-                        onChange={this.handlePageChange}
-                        />
-                    </div>
-                </Col>
-               
-                </>
-            </Row>
+                                <Col md={12}>
+                                    <div className="store-filter clearfix">
+                                        <span className="store-qty">Showing {this.state.pageNo*this.state.activePage-this.state.pageNo+1}-{this.state.pageNo*this.state.activePage} of {this.state.totalItemsCount} {this.state.demo}</span>
+                                        <div className="store-sort">
+                                            <select className="input-select"
+                                            onChange={event => this.numOfComment(this.state.pageNo,event.target.value)}
+                                            >
+                                                <option value="desc">Sort by date newest to oldest</option>
+                                                <option value="asc">Sort by date oldest to newest</option>
+                                            </select>
+                                            <select className="input-select"  
+                                            onChange={event => this.numOfComment(event.target.value,this.state.sortState)}>
+                                                <option value="5">show 5</option>
+                                                <option value="10">show 10</option>
+                                                <option value="15">show 15</option>
+                                                <option value="20">show 20</option>
+                                                <option value="50">show 50</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </Col>
+                                <Col md={12}>
+                                    {this.state.items.map(item =>
+                                            <div key={item.id}>
+                                                <h4>Reviews Title {item.review_title} | {item.rating_start} star </h4> 
+                                                <div className="review-body">
+                                                    <p>{item.review_details} </p>
+                                                </div>
+                                                <div className="review-heading">
+                                                    <p className="date">{item.review_date}</p>
+                                                </div>
+                                                <hr/>
+                                            </div>
+                                    )}
+                                    <div id="react-paginate">
+                                    <Pagination
+                                        activePage={this.state.activePage}
+                                        itemsCountPerPage={this.state.itemsCountPerPage}
+                                        totalItemsCount={this.state.totalItemsCount}
+                                        pageRangeDisplayed={5}
+                                        onChange={this.handlePageChange}
+                                        />
+                                    </div>
+                                </Col>
+                                </Row>
                             </Row>
                         </Col>
                         <Col md={4}>
                         <div className="product-details">
                                     <div className="price">
-                                    <h4 className="">write a review</h4>
+                                    <h4 className="">Write a review</h4>
                                     <hr/>                                    
                                     </div>
-                                    <form onSubmit={(e)=> this.handldeform(e)}>
+                                    <form onSubmit={(e)=> this.handldeformReview(e)}>
                                     <div className="qty-label qty">
                                         <label htmlFor="title">Add a title</label>
                                         <input 
