@@ -114,7 +114,7 @@ export class Shop extends Component {
                                     <CardBody data-tip='' data-for="close"
                                     onClick={()=>this.clearFilter()}
                                     >
-                                    <CardText><h5>Filter by</h5></CardText>
+                                    <CardText>Filter by</CardText>
                                     <ReactTooltip id="close" getContent={() => { return "Clear filter" }}/>
                                     </CardBody>
                                 </Ca>
@@ -214,6 +214,7 @@ export class Shop extends Component {
                                             <option value="10">show 10</option>
                                             <option value="15">show 15</option>
                                             <option value="20">show 20</option>
+                                            <option value="20">show 25</option>
                                         </select>
                                     </div>
                                 </div>   

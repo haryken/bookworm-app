@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import {Navbar,Container,Nav} from 'react-bootstrap';
-
+import {Navbar,Container,Nav,Link} from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
 export class NavigationBar extends Component {
+
     render() {
         return (
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -17,8 +18,10 @@ export class NavigationBar extends Component {
                 <Nav className="me-auto">
                   
                 </Nav>
-                <Nav className="pull-right">
-                <Nav.Link href="/">Home</Nav.Link>
+                <Nav 
+                activeKey={this.props.location.pathname}
+                className="pull-right">
+                <Nav.Link href="/">Home </Nav.Link>
                   <Nav.Link href="/shop">Shop</Nav.Link>
                   <Nav.Link href="/about">About</Nav.Link>
                   <Nav.Link href="/cart">Cart({this.props.count_item})</Nav.Link>
@@ -29,4 +32,4 @@ export class NavigationBar extends Component {
         )
     }
 }
-export default NavigationBar
+export default withRouter(NavigationBar)

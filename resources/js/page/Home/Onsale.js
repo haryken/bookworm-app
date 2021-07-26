@@ -59,9 +59,21 @@ render() {
       
     <Container>
         <Row>
-            <Col md={11}><h3 className="title">On sale</h3></Col>
+            <Col md={11}>
+            <div id="product-tab">
+                <ul className="tab-nav">
+                    <div className="section-title">
+                        <h3 className="title">On sale</h3>
+                    </div>
+                </ul>
+            </div>
+            </Col>
             <Col>
-                <Button variant="danger" href="/shop">View all</Button>
+                <Button
+                style={{margin:"2px"}}
+                variant="danger"
+                href="/shop"
+                >View all</Button>
             </Col>
         </Row>
         <Row>

@@ -4,6 +4,7 @@ import Feature from './Feature';
 import {Col,Container,Row,Button, Card} from 'react-bootstrap';
 
 export default class Home extends PureComponent {
+
   render() {
     return (
       <>

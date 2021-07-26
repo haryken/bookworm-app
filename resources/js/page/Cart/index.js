@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import {get} from '../httpHelper';
 import {Col,Container,Row,Table,Figure} from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
+import {Link} from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.min.css';
+import ReactTooltip from 'react-tooltip';
 import axios from 'axios';
 export default class Cart extends Component {
     constructor(props) {
@@ -237,7 +239,8 @@ export default class Cart extends Component {
                                                 <Col md={6}>
                                                     <Row>
                                                         <Col md={12}>
-                                                        <p className="book-title">{result.book_title}</p>
+                                                        <p data-tip='' data-for={result.book_title+'4'}><Link to={"/book/"+result.bookId}>{result.book_title}</Link></p>
+                                                        <ReactTooltip id={result.book_title+'4'} getContent={() => { return "View detail" }}/>
                                                         </Col>
                                                     </Row>
                                                 </Col>
