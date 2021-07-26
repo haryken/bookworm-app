@@ -33,7 +33,7 @@ render() {
                                       <ReactTooltip id={result.book_title+'2'} getContent={() => { return "View detail" }}/>
                                   </div>
                                   <div className="product-body">
-                                       <h4 className="product-price">{result.sub_price}</h4>
+                                       <h4 className="product-price">${result.sub_price}</h4>
                                   </div>
                               </div>
                       </Col>
@@ -51,7 +51,7 @@ render() {
                                       <ReactTooltip id={result.book_title+'2'} getContent={() => { return "View detail" }}/>
                                   </div>
                                   <div className="product-body">
-                                       <h4 className="product-price">{result.sub_price} <del className="product-old-price">{result.book_price}</del></h4>
+                                       <h4 className="product-price">${result.sub_price} <del className="product-old-price">${result.book_price}</del></h4>
                                   </div>
                               </div>
                       </Col>

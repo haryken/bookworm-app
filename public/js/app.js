@@ -5399,6 +5399,8 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -5419,8 +5421,6 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -5436,26 +5436,20 @@ var Cart = /*#__PURE__*/function (_Component) {
 
   var _super = _createSuper(Cart);
 
-  function Cart() {
+  function Cart(props) {
     var _this;
 
     _classCallCheck(this, Cart);
 
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _super.call.apply(_super, [this].concat(args));
-
-    _defineProperty(_assertThisInitialized(_this), "state", {
+    _this = _super.call(this, props);
+    _this.timer = null;
+    _this.state = {
       items: JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [],
       carts: [],
       amounts: [],
       total: 0.0,
-      cartCount: localStorage.getItem('cart_count') !== null ? parseInt(localStorage.getItem('cart_count')) : 0,
-      ken: []
-    });
-
+      cartCount: localStorage.getItem('cart_count') !== null ? parseInt(localStorage.getItem('cart_count')) : 0
+    };
     return _this;
   }
 
@@ -5469,6 +5463,15 @@ var Cart = /*#__PURE__*/function (_Component) {
       this.setState({
         total: totalcost.toFixed(2)
       });
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this._mounted = false;
+
+      if (this.timer) {
+        clearTimeout(this.timer);
+      }
     }
   }, {
     key: "increaseValue",
@@ -5592,6 +5595,9 @@ var Cart = /*#__PURE__*/function (_Component) {
 
           _this2.updateAll();
 
+          _this2.timer = setTimeout(function () {
+            window.location = '/';
+          }, 10000);
           react_toastify__WEBPACK_IMPORTED_MODULE_5__.toast.success('Order successfull!', {
             position: "bottom-right",
             autoClose: 10000,
@@ -6205,9 +6211,9 @@ var Onsale = /*#__PURE__*/function (_React$Component) {
                           className: "product-body",
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("h4", {
                             className: "product-price",
-                            children: [result.sub_price, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("del", {
+                            children: ["$", result.sub_price, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("del", {
                               className: "product-old-price",
-                              children: result.book_price
+                              children: ["$", result.book_price]
                             })]
                           })
                         })]
@@ -6346,9 +6352,9 @@ var Popular = /*#__PURE__*/function (_React$Component) {
                   })]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                   className: "product-body",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h4", {
                     className: "product-price",
-                    children: result.sub_price
+                    children: ["$", result.sub_price]
                   })
                 })]
               })
@@ -6390,9 +6396,9 @@ var Popular = /*#__PURE__*/function (_React$Component) {
                   className: "product-body",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h4", {
                     className: "product-price",
-                    children: [result.sub_price, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("del", {
+                    children: ["$", result.sub_price, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("del", {
                       className: "product-old-price",
-                      children: result.book_price
+                      children: ["$", result.book_price]
                     })]
                   })
                 })]
@@ -6527,9 +6533,9 @@ var Recommended = /*#__PURE__*/function (_React$Component) {
                   })]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                   className: "product-body",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h4", {
                     className: "product-price",
-                    children: result.sub_price
+                    children: ["$", result.sub_price]
                   })
                 })]
               })
@@ -6571,9 +6577,9 @@ var Recommended = /*#__PURE__*/function (_React$Component) {
                   className: "product-body",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h4", {
                     className: "product-price",
-                    children: [result.sub_price, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("del", {
+                    children: ["$", result.sub_price, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("del", {
                       className: "product-old-price",
-                      children: result.book_price
+                      children: ["$", result.book_price]
                     })]
                   })
                 })]
@@ -7244,9 +7250,9 @@ var Product = /*#__PURE__*/function (_Component) {
                         className: "price",
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("h3", {
                           className: "product-price",
-                          children: [this.state.finalPrice, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("del", {
+                          children: ["$", this.state.finalPrice, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("del", {
                             className: "product-old-price",
-                            children: this.state.delPrice
+                            children: ["$", this.state.delPrice]
                           })]
                         })
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
@@ -8122,9 +8128,9 @@ var Shop = /*#__PURE__*/function (_Component) {
                                 className: "product-body",
                                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("h4", {
                                   className: "product-price",
-                                  children: [result.sub_price, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("del", {
+                                  children: ["$", result.sub_price, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("del", {
                                     className: "product-old-price",
-                                    children: result.book_price
+                                    children: ["$", result.book_price]
                                   })]
                                 })
                               })]
@@ -8167,9 +8173,9 @@ var Shop = /*#__PURE__*/function (_Component) {
                                 })]
                               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                                 className: "product-body",
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h4", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("h4", {
                                   className: "product-price",
-                                  children: result.sub_price
+                                  children: ["$", result.sub_price]
                                 })
                               })]
                             })

@@ -5,14 +5,17 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import axios from 'axios';
 export default class Cart extends Component {
-    state = {
-        items: JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [],
+
+    constructor(props) {
+        super(props);
+        this.timer = null;
+        this.state = {
+            items: JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [],
         carts: [],
         amounts: [],
         total: 0.0,
         cartCount: localStorage.getItem('cart_count')!==null?parseInt(localStorage.getItem('cart_count')):0,
-        ken: []
-
+        };
     }
     componentDidMount(){
         let totalcost = 0.0;
@@ -22,6 +25,12 @@ export default class Cart extends Component {
         this.setState({
             total: totalcost.toFixed(2)
         })
+    }
+    componentWillUnmount() {
+        this._mounted = false;
+        if (this.timer) {
+            clearTimeout(this.timer);
+        }
     }
     increaseValue(book_id,amount){    
         if (amount  <= 7) {
@@ -129,6 +138,9 @@ export default class Cart extends Component {
             .then((response) => {
                     localStorage.removeItem('cart');
                     this.updateAll();
+                    this.timer = setTimeout(function () {
+                        window.location = '/'
+                    }, 10000);
                     toast.success('Order successfull!', {
                         position: "bottom-right",
                         autoClose: 10000,

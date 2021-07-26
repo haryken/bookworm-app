@@ -9,6 +9,9 @@ use App\Models\Author;
 use App\Http\Resources\ReviewResource;
 use Hamcrest\Core\HasToString;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+
 
 class ProductController extends Controller
 {
@@ -51,17 +54,17 @@ class ProductController extends Controller
         return $authors;
     }
     public function reviews(Request $request){
-        $validatedData = $request->validate([
-            'review_title' => 'required|max:255',
-            'review_details' => 'required',
-            'rating_start' => 'required',
-            'book_id' => 'required'
+        $validatedData = Validator::make($request->all(), [
+            'review_title' => 'required|string|max:120',
+            'review_details' => 'nullable|string',
+            'rating_start' => ['required', Rule::in([1, 2, 3, 4, 5])]
         ]);
-        if($validatedData){
+        if ($validatedData->fails()) {
+            return response($validatedData->getMessageBag(), 400);
+        }
             $validated_request = array_merge($request->all(), ['review_date' => now()]);
             $review = Review::create($validated_request);
             return response(new ReviewResource($review), 201);
-        }
 
     }
     public function countReview($id)
