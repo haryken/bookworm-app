@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import {Container, Row, Col,Breadcrumb,Accordion,Card  } from 'react-bootstrap';
-import { UncontrolledCollapse } from 'reactstrap';
+import {Container, Row, Col,Breadcrumb,Accordion,Card} from 'react-bootstrap';
+import { Button, Card as Ca, CardBody, CardText, CardGroup, CardTitle } from 'reactstrap';
 import {get} from "../httpHelper";
 import Pagination from "react-js-pagination";
 import {Link} from "react-router-dom";
@@ -79,6 +79,21 @@ export class Shop extends Component {
             });
         })
     }
+    async clearFilter(){
+        await this.setState({
+            filerValue: '',
+            activePage: 1,
+            Label: ''
+        })
+        get("/books/"+this.state.sortPage+"/"+this.state.pageNo+this.state.filerValue+"?page="+this.state.activePage).then(response => {
+            this.setState({ 
+                items: response.data.data,
+                activePage: response.data.current_page,
+                itemsCountPerPage: Number(response.data.per_page),
+                totalItemsCount: response.data.total,
+            });
+        })
+    }
     render() {
         return (
             <>
@@ -90,11 +105,23 @@ export class Shop extends Component {
                         <Breadcrumb.Item active>Books  {this.state.Label}</Breadcrumb.Item>
                         </Breadcrumb>
                         <hr/>
-                         </Col>
+                    </Col>
                     <Col md={3}>
                         <Row>
-                        <Col>
-                        <Accordion>
+                        <Col md={12}>
+                            <CardGroup>
+                            <Ca>
+                                <CardBody data-tip='' data-for="close"
+                                onClick={()=>this.clearFilter()}
+                                >
+                                <CardText><h5>Filter by</h5></CardText>
+                                <ReactTooltip id="close" getContent={() => { return "Clear filter" }}/>
+                                </CardBody>
+                            </Ca>
+                            </CardGroup>
+                            </Col>
+                            <Col>
+                            <Accordion>
                         <Card>
                             <Accordion.Toggle as={Card.Header} eventKey="0">
                                 Category
@@ -105,7 +132,7 @@ export class Shop extends Component {
                                 {this.state.categories.map(cate=>{
                                 return(
                                 <div key={cate.category_name} 
-                                onClick={event => this.handelFilter("/category/"+cate.id,'Category '+cate.category_name)}
+                                onClick={event => this.handelFilter("/category/"+cate.id,'category '+cate.category_name)}
                                 >
                                     Category {cate.category_name}
                                 </div>
@@ -124,7 +151,7 @@ export class Shop extends Component {
                                 {this.state.authors.map(cate=>{
                                 return(
                                 <div key={cate.author_name}
-                                onClick={event => this.handelFilter("/author/"+cate.id,'Author '+cate.author_name)}
+                                onClick={event => this.handelFilter("/author/"+cate.id,'author '+cate.author_name)}
                                 >
                                     {cate.author_name}
                                 </div>

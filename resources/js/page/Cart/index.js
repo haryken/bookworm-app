@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import {get} from '../httpHelper';
-import {Col,Container,Row,Table,Figure,Button } from 'react-bootstrap';
+import {Col,Container,Row,Table,Figure} from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import axios from 'axios';
 export default class Cart extends Component {
-
     constructor(props) {
         super(props);
         this.timer = null;
@@ -198,10 +197,11 @@ export default class Cart extends Component {
                     <Row>
                         <ToastContainer />
                         <Col md={12}>
-                        <h3>
+                        <hr/>    
+                        <h5>
                             Item totals: {this.state.cartCount}
                             
-                        </h3>
+                        </h5>
                         <hr/>    
                         </Col>
                         <Col md={9}>

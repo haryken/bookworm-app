@@ -128,9 +128,26 @@ export class Product extends Component {
             });
             
           })
-          .catch(function (error) {
-            console.log(error);
-          });
+          .catch((error) => {
+            if (error.response.status === 400) {
+                toast.error(error.response.data.review_title[0], {
+                    position: "bottom-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
+
+            if (error.response.status === 404) {
+                this.props.history.push('/404')
+            }
+            if (error.response.status === 500) {
+                this.props.history.push('/500')
+            }
+        });
           await this.setState({
             review_title: '',
             review_details: '',
@@ -393,6 +410,7 @@ export class Product extends Component {
                                         
                                         
                                     </div>
+                                    <br/>
                                     <div className="add-to-cart">
                                         <button type='submit' className="primary-btn">Submit review</button>
                                     </div>
