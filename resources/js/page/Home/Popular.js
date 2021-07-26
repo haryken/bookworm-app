@@ -24,7 +24,9 @@ class Popular extends React.Component {
                       <Col md={3}  key={result.book_title}>
                           <div className="product">
                                   <div className="product-img">
-                                      <img src={"./img/"+result.book_cover_photo+".jpg"} height="300px" alt=""/>
+                                      <img
+                                      src={result.book_cover_photo? "../img/"+result.book_cover_photo+".jpg":"../img/default.jpg"} 
+                                      height="300px" alt=""/>
                                   </div>
                                   <div className="product-body" style={{height: "150px"}}>
                                       <p className="author-name">   {result.author_name}</p>
@@ -42,7 +44,9 @@ class Popular extends React.Component {
                             <Col md={3} key={result.book_summary}>
                               <div className="product">
                                   <div className="product-img">
-                                      <img src={"./img/"+result.book_cover_photo+".jpg"} height="300px" alt=""/>
+                                      <img
+                                      src={result.book_cover_photo? "../img/"+result.book_cover_photo+".jpg":"../img/default.jpg"} 
+                                      height="300px" alt=""/>
                                   </div>
                                   <div className="product-body" style={{height: "150px"}}>
                                       <p className="author-name">   {result.author_name}</p>

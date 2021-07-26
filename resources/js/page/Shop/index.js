@@ -108,90 +108,90 @@ export class Shop extends Component {
                     </Col>
                     <Col md={3}>
                         <Row>
-                        <Col md={12}>
-                            <CardGroup>
-                            <Ca>
-                                <CardBody data-tip='' data-for="close"
-                                onClick={()=>this.clearFilter()}
-                                >
-                                <CardText><h5>Filter by</h5></CardText>
-                                <ReactTooltip id="close" getContent={() => { return "Clear filter" }}/>
-                                </CardBody>
-                            </Ca>
-                            </CardGroup>
+                            <Col md={12}>
+                                <CardGroup>
+                                <Ca>
+                                    <CardBody data-tip='' data-for="close"
+                                    onClick={()=>this.clearFilter()}
+                                    >
+                                    <CardText><h5>Filter by</h5></CardText>
+                                    <ReactTooltip id="close" getContent={() => { return "Clear filter" }}/>
+                                    </CardBody>
+                                </Ca>
+                                </CardGroup>
                             </Col>
-                            <Col>
-                            <Accordion>
-                        <Card>
-                            <Accordion.Toggle as={Card.Header} eventKey="0">
-                                Category
-                            </Accordion.Toggle>
+                            <Col md={12}>
+                                <Accordion>
+                                    <Card>
+                                        <Accordion.Toggle as={Card.Header} eventKey="0">
+                                            Category
+                                        </Accordion.Toggle>
 
-                            <Accordion.Collapse eventKey="0">
-                                <Card.Body>
-                                {this.state.categories.map(cate=>{
-                                return(
-                                <div key={cate.category_name} 
-                                onClick={event => this.handelFilter("/category/"+cate.id,'category '+cate.category_name)}
-                                >
-                                    Category {cate.category_name}
-                                </div>
-                                )
-                            })}
-                                </Card.Body>
-                            </Accordion.Collapse>
-                        </Card>
-                        <Card>
-                            <Accordion.Toggle as={Card.Header} eventKey="1">
-                                Author
-                            </Accordion.Toggle>
+                                        <Accordion.Collapse eventKey="0">
+                                            <Card.Body>
+                                            {this.state.categories.map(cate=>{
+                                            return(
+                                            <div key={cate.category_name} 
+                                            onClick={event => this.handelFilter("/category/"+cate.id,'category '+cate.category_name)}
+                                            >
+                                                Category {cate.category_name}
+                                            </div>
+                                            )
+                                        })}
+                                            </Card.Body>
+                                        </Accordion.Collapse>
+                                    </Card>
+                                    <Card>
+                                        <Accordion.Toggle as={Card.Header} eventKey="1">
+                                            Author
+                                        </Accordion.Toggle>
 
-                            <Accordion.Collapse eventKey="1">
-                                <Card.Body>
-                                {this.state.authors.map(cate=>{
-                                return(
-                                <div key={cate.author_name}
-                                onClick={event => this.handelFilter("/author/"+cate.id,'author '+cate.author_name)}
-                                >
-                                    {cate.author_name}
-                                </div>
-                                )
-                            })}
-                                </Card.Body>
-                            </Accordion.Collapse>
-                        </Card>
-                        <Card>
-                            <Accordion.Toggle as={Card.Header} eventKey="3">
-                                Rating reviews
-                            </Accordion.Toggle>
+                                        <Accordion.Collapse eventKey="1">
+                                            <Card.Body>
+                                            {this.state.authors.map(cate=>{
+                                            return(
+                                            <div key={cate.author_name}
+                                            onClick={event => this.handelFilter("/author/"+cate.id,'author '+cate.author_name)}
+                                            >
+                                                {cate.author_name}
+                                            </div>
+                                            )
+                                        })}
+                                            </Card.Body>
+                                        </Accordion.Collapse>
+                                    </Card>
+                                    <Card>
+                                        <Accordion.Toggle as={Card.Header} eventKey="3">
+                                            Rating reviews
+                                        </Accordion.Toggle>
 
-                            <Accordion.Collapse eventKey="3">
-                                <Card.Body>
-                                <div 
-                            onClick={event => this.handelFilter("/star/1",'1 Star')}>
-                                1 Star
-                            </div>
-                            <div onClick={event => this.handelFilter("/star/2",'2 Star')}
-                            >
-                                2 Star
-                            </div>
-                            <div
-                            onClick={event => this.handelFilter("/star/3",'3 Star')}>
-                                3 Star
-                            </div>
-                            <div 
-                            onClick={event => this.handelFilter("/star/4",'4 Star')}>
-                                4 Star
-                            </div>
-                            <div
-                            onClick={event => this.handelFilter("/star/5",'5 Star')}>
-                                5 Star
-                            </div>
-                                </Card.Body>
-                            </Accordion.Collapse>
-                        </Card>
-                    </Accordion>
-                        </Col>
+                                        <Accordion.Collapse eventKey="3">
+                                            <Card.Body>
+                                            <div 
+                                        onClick={event => this.handelFilter("/star/1",'1 Star')}>
+                                            1 Star
+                                        </div>
+                                        <div onClick={event => this.handelFilter("/star/2",'2 Star')}
+                                        >
+                                            2 Star
+                                        </div>
+                                        <div
+                                        onClick={event => this.handelFilter("/star/3",'3 Star')}>
+                                            3 Star
+                                        </div>
+                                        <div 
+                                        onClick={event => this.handelFilter("/star/4",'4 Star')}>
+                                            4 Star
+                                        </div>
+                                        <div
+                                        onClick={event => this.handelFilter("/star/5",'5 Star')}>
+                                            5 Star
+                                        </div>
+                                            </Card.Body>
+                                        </Accordion.Collapse>
+                                    </Card>
+                                </Accordion>
+                            </Col>
                         </Row>
                     </Col>
                     <Col md={9}>
@@ -227,7 +227,7 @@ export class Shop extends Component {
                                                 <div key={result.id}>
                                                 <div className="product">
                                                     <div className="product-img">
-                                                        <img src={"./img/"+result.book_cover_photo+".jpg"} height="200px" alt=""/>
+                                                        <img src={result.book_cover_photo? "./img/"+result.book_cover_photo+".jpg":"./img/default.jpg"} height="200px" alt=""/>
                                                     </div>
                                                     <div className="product-body" style={{height: "150px"}}>
                                                         <p className="author-name">   {result.author_name}</p>
@@ -247,7 +247,7 @@ export class Shop extends Component {
                                                 <div>
                                                 <div className="product">
                                                     <div className="product-img">
-                                                        <img src={"./img/"+result.book_cover_photo+".jpg"} height="200px" alt=""/>
+                                                        <img src={result.book_cover_photo? "./img/"+result.book_cover_photo+".jpg":"./img/default.jpg"}  height="200px" alt=""/>
                                                     </div>
                                                     <div className="product-body" style={{height: "150px"}}>
                                                         <p className="author-name">{result.author_name}</p>

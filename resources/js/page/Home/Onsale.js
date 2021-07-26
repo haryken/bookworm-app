@@ -73,7 +73,10 @@ render() {
                               <div key={result.id}>
                               <div className="product">
                                   <div className="product-img">
-                                      <img src={"./img/"+result.book_cover_photo+".jpg"} height="300px" alt=""/>
+                                      <img 
+                                      src={result.book_cover_photo? "../img/"+result.book_cover_photo+".jpg":"../img/default.jpg"} 
+                                      height="300px" alt=""
+                                      />
                                   </div>
                                   <div className="product-body" style={{height: "150px"}}>
                                       <p className="author-name">   {result.author_name}</p>

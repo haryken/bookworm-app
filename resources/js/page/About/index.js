@@ -6,6 +6,7 @@ export class About extends Component {
             <Container>
                 <Row>
                     <Col md={12}>
+                        <hr/>
                         <h4>About us</h4>
                         <hr/>
                     </Col>

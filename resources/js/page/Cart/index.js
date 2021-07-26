@@ -227,7 +227,7 @@ export default class Cart extends Component {
                                                         width={130}
                                                         height={190}
                                                         alt="171x180"
-                                                        src={"../img/"+result.book_cover_photo+".jpg"}
+                                                        src={result.book_cover_photo? "../img/"+result.book_cover_photo+".jpg":"../img/default.jpg"} 
                                                     />
                                                     <Figure.Caption>
                                                     By (author)     {result.author_name}

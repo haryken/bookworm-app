@@ -5314,7 +5314,7 @@ var About = /*#__PURE__*/function (_Component) {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__.default, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
             md: 12,
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h4", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h4", {
               children: "About us"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {})]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
@@ -5692,7 +5692,7 @@ var Cart = /*#__PURE__*/function (_Component) {
                                 width: 130,
                                 height: 190,
                                 alt: "171x180",
-                                src: "../img/" + result.book_cover_photo + ".jpg"
+                                src: result.book_cover_photo ? "../img/" + result.book_cover_photo + ".jpg" : "../img/default.jpg"
                               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__.default.Caption, {
                                 children: ["By (author)     ", result.author_name]
                               })]
@@ -6215,7 +6215,7 @@ var Onsale = /*#__PURE__*/function (_React$Component) {
                         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
                           className: "product-img",
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
-                            src: "./img/" + result.book_cover_photo + ".jpg",
+                            src: result.book_cover_photo ? "../img/" + result.book_cover_photo + ".jpg" : "../img/default.jpg",
                             height: "300px",
                             alt: ""
                           })
@@ -6358,7 +6358,7 @@ var Popular = /*#__PURE__*/function (_React$Component) {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                   className: "product-img",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-                    src: "./img/" + result.book_cover_photo + ".jpg",
+                    src: result.book_cover_photo ? "../img/" + result.book_cover_photo + ".jpg" : "../img/default.jpg",
                     height: "300px",
                     alt: ""
                   })
@@ -6400,7 +6400,7 @@ var Popular = /*#__PURE__*/function (_React$Component) {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                   className: "product-img",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-                    src: "./img/" + result.book_cover_photo + ".jpg",
+                    src: result.book_cover_photo ? "../img/" + result.book_cover_photo + ".jpg" : "../img/default.jpg",
                     height: "300px",
                     alt: ""
                   })
@@ -6539,7 +6539,7 @@ var Recommended = /*#__PURE__*/function (_React$Component) {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                   className: "product-img",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-                    src: "./img/" + result.book_cover_photo + ".jpg",
+                    src: result.book_cover_photo ? "../img/" + result.book_cover_photo + ".jpg" : "../img/default.jpg",
                     height: "300px",
                     alt: ""
                   })
@@ -6581,7 +6581,7 @@ var Recommended = /*#__PURE__*/function (_React$Component) {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                   className: "product-img",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-                    src: "./img/" + result.book_cover_photo + ".jpg",
+                    src: result.book_cover_photo ? "../img/" + result.book_cover_photo + ".jpg" : "../img/default.jpg",
                     height: "300px",
                     alt: ""
                   })
@@ -7259,6 +7259,19 @@ var Product = /*#__PURE__*/function (_Component) {
       }
     }
   }, {
+    key: "convertDate",
+    value: function convertDate(date2convert) {
+      var datecovert = new Date(date2convert);
+      datecovert = datecovert.getFullYear() + '-' + (datecovert.getMonth() + 1) + '-' + datecovert.getDate();
+      datecovert = datecovert.split(/\D/);
+      datecovert = new Date(datecovert[0], datecovert[1] - 1, datecovert[2]);
+      return datecovert.toLocaleString('en-CA', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      });
+    }
+  }, {
     key: "isBookAdded",
     value: function isBookAdded(bookId) {
       return this.state.cart.some(function (item) {
@@ -7335,7 +7348,7 @@ var Product = /*#__PURE__*/function (_Component) {
                           width: 130,
                           height: 190,
                           alt: "171x180",
-                          src: "../img/" + this.state.data.book_cover_photo + ".jpg"
+                          src: this.state.data.book_cover_photo ? "../img/" + this.state.data.book_cover_photo + ".jpg" : "../img/default.jpg"
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default.Caption, {
                           children: ["By (author)     ", this.state.data.author_name]
                         })]
@@ -7505,14 +7518,14 @@ var Product = /*#__PURE__*/function (_Component) {
                               children: ["Reviews Title ", item.review_title, " | ", item.rating_start, " star "]
                             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
                               className: "review-body",
-                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
-                                children: [item.review_details, " "]
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+                                children: item.review_details
                               })
                             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
                               className: "review-heading",
                               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
                                 className: "date",
-                                children: item.review_date
+                                children: _this7.convertDate(item.review_date.toString())
                               })
                             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("hr", {})]
                           }, item.id);
@@ -8081,6 +8094,7 @@ var Shop = /*#__PURE__*/function (_Component) {
                     })
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__.default, {
+                  md: 12,
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default, {
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default.Toggle, {
@@ -8222,7 +8236,7 @@ var Shop = /*#__PURE__*/function (_Component) {
                               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                                 className: "product-img",
                                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-                                  src: "./img/" + result.book_cover_photo + ".jpg",
+                                  src: result.book_cover_photo ? "./img/" + result.book_cover_photo + ".jpg" : "./img/default.jpg",
                                   height: "200px",
                                   alt: ""
                                 })
@@ -8269,7 +8283,7 @@ var Shop = /*#__PURE__*/function (_Component) {
                               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                                 className: "product-img",
                                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-                                  src: "./img/" + result.book_cover_photo + ".jpg",
+                                  src: result.book_cover_photo ? "./img/" + result.book_cover_photo + ".jpg" : "./img/default.jpg",
                                   height: "200px",
                                   alt: ""
                                 })

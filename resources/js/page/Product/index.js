@@ -196,6 +196,13 @@ export class Product extends Component {
             })
         }
     }
+    convertDate(date2convert) {
+        var datecovert = new Date(date2convert);
+        datecovert = datecovert.getFullYear() + '-' + (datecovert.getMonth() + 1) + '-' + datecovert.getDate();
+        datecovert = datecovert.split(/\D/);
+        datecovert = new Date(datecovert[0], datecovert[1] - 1, datecovert[2]);
+        return datecovert.toLocaleString('en-CA', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
     isBookAdded(bookId){
         return this.state.cart.some(item => bookId === item.bookId);
       }
@@ -271,7 +278,7 @@ export class Product extends Component {
                                     width={130}
                                     height={190}
                                     alt="171x180"
-                                    src={"../img/"+this.state.data.book_cover_photo+".jpg"}
+                                    src={this.state.data.book_cover_photo? "../img/"+this.state.data.book_cover_photo+".jpg":"../img/default.jpg"} 
                                 />
                                 <Figure.Caption>
                                 By (author)     {this.state.data.author_name}
@@ -393,10 +400,10 @@ export class Product extends Component {
                                             <div key={item.id}>
                                                 <h4>Reviews Title {item.review_title} | {item.rating_start} star </h4> 
                                                 <div className="review-body">
-                                                    <p>{item.review_details} </p>
+                                                    <p>{item.review_details}</p>
                                                 </div>
                                                 <div className="review-heading">
-                                                    <p className="date">{item.review_date}</p>
+                                                    <p className="date">{this.convertDate(item.review_date.toString())}</p>
                                                 </div>
                                                 <hr/>
                                             </div>
