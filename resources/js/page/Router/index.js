@@ -12,7 +12,6 @@ export class Master extends Component {
   state = {
     cart: JSON.parse(localStorage.getItem('cart'))!==null?JSON.parse(localStorage.getItem('cart')):[],
     cartCount: localStorage.getItem('cart_count')!==null?parseInt(localStorage.getItem('cart_count')):0,
-    navActive: '/'
   }
   componentDidMount(){
     console.log(this.state.navActive)
@@ -21,17 +20,11 @@ export class Master extends Component {
     localStorage.setItem('cart_count',localStorage.getItem('cart')!==null?JSON.parse(localStorage.getItem('cart')).length:0);
     this.setState({cartCount: localStorage.getItem('cart_count')!==null?parseInt(localStorage.getItem('cart_count')):0})
   }
-  handleActive = (cur) => {
-    this.setState({
-      navActive: cur
-    },()=>{
-      console.log(cur)
-    })
-  }
+
   render(){
     return (
       <Router>
-          <NavigationBar handleActive={this.handleActive} navActive={this.state.navActive}  count_item={this.state.cartCount} />
+          <NavigationBar  count_item={this.state.cartCount} />
           <Switch>
             <Route path="/book/:id">
                 <Product handleUpdateCartCount={this.handleUpdateCartCount}/>
