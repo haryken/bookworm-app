@@ -132,9 +132,10 @@ export class Shop extends Component {
                                             {this.state.categories.map(cate=>{
                                             return(
                                             <div key={cate.category_name} 
-                                            onClick={event => this.handelFilter("/category/"+cate.id,'category '+cate.category_name)}
+                                            onClick={event => this.handelFilter("/category/"+cate.id,'filter by Category '+cate.category_name)}
                                             >
                                                 Category {cate.category_name}
+                                            <hr/>
                                             </div>
                                             )
                                         })}
@@ -151,9 +152,10 @@ export class Shop extends Component {
                                             {this.state.authors.map(cate=>{
                                             return(
                                             <div key={cate.author_name}
-                                            onClick={event => this.handelFilter("/author/"+cate.id,'author '+cate.author_name)}
+                                            onClick={event => this.handelFilter("/author/"+cate.id,'filter by Author '+cate.author_name)}
                                             >
                                                 {cate.author_name}
+                                            <hr/>
                                             </div>
                                             )
                                         })}
@@ -168,24 +170,29 @@ export class Shop extends Component {
                                         <Accordion.Collapse eventKey="3">
                                             <Card.Body>
                                             <div 
-                                        onClick={event => this.handelFilter("/star/1",'1 Star')}>
+                                        onClick={event => this.handelFilter("/star/1",'filter by 1 Star')}>
                                             1 Star
+                                        <hr/>
                                         </div>
-                                        <div onClick={event => this.handelFilter("/star/2",'2 Star')}
+                                        <div onClick={event => this.handelFilter("/star/2",'filter by 2 Star')}
                                         >
                                             2 Star
+                                        <hr/>
                                         </div>
                                         <div
-                                        onClick={event => this.handelFilter("/star/3",'3 Star')}>
+                                        onClick={event => this.handelFilter("/star/3",'filter by 3 Star')}>
                                             3 Star
+                                        <hr/>
                                         </div>
                                         <div 
-                                        onClick={event => this.handelFilter("/star/4",'4 Star')}>
+                                        onClick={event => this.handelFilter("/star/4",'filter by 4 Star')}>
                                             4 Star
+                                        <hr/>
                                         </div>
                                         <div
-                                        onClick={event => this.handelFilter("/star/5",'5 Star')}>
+                                        onClick={event => this.handelFilter("/star/5",'filter by 5 Star')}>
                                             5 Star
+                                        <hr/>
                                         </div>
                                             </Card.Body>
                                         </Accordion.Collapse>

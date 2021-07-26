@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {get} from '../httpHelper';
 import {Col,Container,Row,Table,Figure} from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import {Link} from "react-router-dom";
