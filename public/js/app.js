@@ -5728,10 +5728,10 @@ var Cart = /*#__PURE__*/function (_Component) {
                             className: "price",
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h3", {
                               className: "product-price",
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("del", {
+                              children: ["$", result.sub_price, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("del", {
                                 className: "product-old-price",
                                 children: result.delPrice ? "$" + result.delPrice : ""
-                              }), "$", result.sub_price]
+                              })]
                             })
                           })
                         })
