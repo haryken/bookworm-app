@@ -6172,6 +6172,7 @@ var Onsale = /*#__PURE__*/function (_React$Component) {
       var settings = {
         infinite: false,
         speed: 500,
+        dots: true,
         slidesToShow: 4,
         slidesToScroll: 4,
         initialSlide: 0,
@@ -8254,7 +8255,7 @@ var Shop = /*#__PURE__*/function (_Component) {
                           value: "20",
                           children: "show 20"
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
-                          value: "20",
+                          value: "25",
                           children: "show 25"
                         })]
                       })]

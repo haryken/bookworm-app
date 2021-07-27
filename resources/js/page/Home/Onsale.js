@@ -23,6 +23,7 @@ render() {
       var settings = {
         infinite: false,
         speed: 500,
+        dots: true,
         slidesToShow: 4,
         slidesToScroll: 4,
         initialSlide: 0,

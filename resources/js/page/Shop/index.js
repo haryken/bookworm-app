@@ -221,7 +221,7 @@ export class Shop extends Component {
                                             <option value="10">show 10</option>
                                             <option value="15">show 15</option>
                                             <option value="20">show 20</option>
-                                            <option value="20">show 25</option>
+                                            <option value="25">show 25</option>
                                         </select>
                                     </div>
                                 </div>   
