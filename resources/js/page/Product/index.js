@@ -441,7 +441,7 @@ export class Product extends Component {
                                         <br/>
                                         <br/>
                                         <label htmlFor="des">Details please! Your review help other shoppers</label>
-                                        <textarea className="input" name="review_details" cols="30" rows="7" required 
+                                        <textarea className="input" name="review_details" cols="30" rows="7" 
                                         value={this.state.review_details}
                                         onChange={(e)=>this.handleReviewDetailChange(e)}
                                         ></textarea>
@@ -470,7 +470,13 @@ export class Product extends Component {
             )
         }else{
             return(
-                <h1>Page not found</h1>
+                <Container>
+                    <Row>
+                        <Col>
+                            <h1>Page not found</h1>
+                        </Col>
+                    </Row>
+                </Container>
             )
         }
         

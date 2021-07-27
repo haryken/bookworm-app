@@ -7605,7 +7605,6 @@ var Product = /*#__PURE__*/function (_Component) {
                           name: "review_details",
                           cols: "30",
                           rows: "7",
-                          required: true,
                           value: this.state.review_details,
                           onChange: function onChange(e) {
                             return _this7.handleReviewDetailChange(e);
@@ -7650,8 +7649,14 @@ var Product = /*#__PURE__*/function (_Component) {
           })
         });
       } else {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h1", {
-          children: "Page not found"
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__.default, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__.default, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__.default, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h1", {
+                children: "Page not found"
+              })
+            })
+          })
         });
       }
     }
