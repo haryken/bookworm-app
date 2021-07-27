@@ -307,8 +307,7 @@ export class Product extends Component {
                     <div>
                         <div className="product-details">
                                 <div className="price">
-                                    <h3 className="product-price">${this.state.finalPrice}
-                                        <del className="product-old-price">{this.state.delPrice ? "$"+this.state.delPrice: ""}</del>
+                                    <h3 className="product-price"><del className="product-old-price">{this.state.delPrice ? "$"+this.state.delPrice: ""}</del>${this.state.finalPrice}
                                     </h3>
                                 </div>
                                 <div className="qty-label qty">

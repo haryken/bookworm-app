@@ -5728,10 +5728,10 @@ var Cart = /*#__PURE__*/function (_Component) {
                             className: "price",
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h3", {
                               className: "product-price",
-                              children: ["$", result.sub_price, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("del", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("del", {
                                 className: "product-old-price",
                                 children: result.delPrice ? "$" + result.delPrice : ""
-                              })]
+                              }), "$", result.sub_price]
                             })
                           })
                         })
@@ -6268,10 +6268,10 @@ var Onsale = /*#__PURE__*/function (_React$Component) {
                           className: "product-body",
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("h4", {
                             className: "product-price",
-                            children: ["$", result.sub_price, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("del", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("del", {
                               className: "product-old-price",
                               children: ["$", result.book_price]
-                            })]
+                            }), "$", result.sub_price, " "]
                           })
                         })]
                       })
@@ -6453,10 +6453,10 @@ var Popular = /*#__PURE__*/function (_React$Component) {
                   className: "product-body",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h4", {
                     className: "product-price",
-                    children: ["$", result.sub_price, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("del", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("del", {
                       className: "product-old-price",
                       children: ["$", result.book_price]
-                    })]
+                    }), "$", result.sub_price, " "]
                   })
                 })]
               })
@@ -6634,10 +6634,10 @@ var Recommended = /*#__PURE__*/function (_React$Component) {
                   className: "product-body",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h4", {
                     className: "product-price",
-                    children: ["$", result.sub_price, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("del", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("del", {
                       className: "product-old-price",
                       children: ["$", result.book_price]
-                    })]
+                    }), "$", result.sub_price, " "]
                   })
                 })]
               })
@@ -7406,10 +7406,10 @@ var Product = /*#__PURE__*/function (_Component) {
                         className: "price",
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("h3", {
                           className: "product-price",
-                          children: ["$", this.state.finalPrice, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("del", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("del", {
                             className: "product-old-price",
                             children: this.state.delPrice ? "$" + this.state.delPrice : ""
-                          })]
+                          }), "$", this.state.finalPrice]
                         })
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
                         className: "qty-label qty",
@@ -8303,10 +8303,10 @@ var Shop = /*#__PURE__*/function (_Component) {
                                 className: "product-body",
                                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("h4", {
                                   className: "product-price",
-                                  children: ["$", result.sub_price, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("del", {
+                                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("del", {
                                     className: "product-old-price",
                                     children: ["$", result.book_price]
-                                  })]
+                                  }), "$", result.sub_price, " "]
                                 })
                               })]
                             })

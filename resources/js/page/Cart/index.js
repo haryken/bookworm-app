@@ -248,8 +248,8 @@ export default class Cart extends Component {
                                             <td>
                                             <div className="product-details">
                                                 <div className="price">
-                                                    <h3 className="product-price">${result.sub_price}
-                                                        <del className="product-old-price">{result.delPrice ? "$"+result.delPrice: ""}</del>
+                                                    <h3 className="product-price">
+                                                        <del className="product-old-price">{result.delPrice ? "$"+result.delPrice: ""}</del>${result.sub_price}
                                                     </h3>
                                                 </div>
                                             </div>
