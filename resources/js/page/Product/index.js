@@ -111,7 +111,7 @@ export class Product extends Component {
     }
     async handldeformReview(e){
         e.preventDefault();
-        await axios.post('http://127.0.0.1:8000/api/book/review', {
+        await axios.post('/api/book/review', {
             book_id: this.state.id,
             review_title: e.target.review_title.value,
             review_details: e.target.review_details.value,
